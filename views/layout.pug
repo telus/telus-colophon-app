@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1,shrink-to-fit=no')
+
+    title Colophon
+    meta(name='description' content='')
+    //- link(rel='canonical' href='http://www.example.com/')
+
+    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel='stylesheet' href='https://cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900')
+    link(rel='stylesheet' href='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css')
+    script(src='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js')
+
+    style.
+      * { box-sizing: border-box }
+
+      body { margin: 0; display: flex; height: 100vh }
+      .mdc-drawer { width: 20vw }
+      .app-content {  flex: auto; overflow: auto; width: 80vw }
+      .main-content { overflow: auto }
+      .app-bar { width: 80vw }
+
+      .avatar { height: 100%; border-radius: 3px }
+      .breadcrumb { color: white; text-decoration: none }
+      .breadcrumb:not(:last-of-type):after { content: ' / ' }
+
+  body.mdc-typography
+    aside.mdc-drawer
+      div.mdc-drawer__header
+        h3.mdc-drawer__title Mail
+        h6.mdc-drawer__subtitle email@material.io
+
+      div.mdc-drawer__content
+        nav.mdc-list
+          hr.mdc-list-divider
+          h6.mdc-list-group__subheader Organizations
+
+          each installation in installations
+            a.mdc-list-item(href=`/dashboard/${installation.id}`)
+              i.mdc-list-item__graphic
+                img.avatar(src=installation.account.avatar_url)
+              span= installation.account.login
+
+          hr.mdc-list-divider
+
+          a.mdc-list-item(href='#')
+            i.material-icons.mdc-list-item__graphic settings
+            | Settings
+          a.mdc-list-item(href='#')
+            i.material-icons.mdc-list-item__graphic announcement
+            | Help & feedback
+
+    div.app-content
+      header.mdc-top-app-bar.app-bar
+        div.mdc-top-app-bar__row
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
+            span.mdc-top-app-bar__title
+              each crumb in nav.breadcrumbs
+                span.breadcrumb= crumb
+
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
+            a(href= nav.avatar.link target='_blank'): i.mdc-top-app-bar__action-item: img.avatar(src= nav.avatar.image)
+
+
+      div.main-content
+        div.mdc-top-app-bar--fixed-adjust
+
+        div.mdc-layout-grid
+          block content
+
+  script.
+    window.mdc.autoInit()
+
+
+
+

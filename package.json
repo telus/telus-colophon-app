@@ -1,0 +1,63 @@
+{
+  "version": "0.0.0-development",
+  "name": "@colophon/app",
+  "description": "Colophon App",
+  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com)",
+  "homepage": "https://colophon.id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/project-colophon/app.git"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "colophon",
+    "app"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "lib",
+    "ui",
+    "views",
+    "index.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/project-colophon/dashboard/issues"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "start": "probot run ./index.js",
+    "lint": "standard --fix",
+    "test": "jest && standard",
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
+  },
+  "dependencies": {
+    "@octokit/rest": "^16.15.0",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
+    "probot": "^7.2.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "nock": "^10.0.1",
+    "nodemon": "^1.17.2",
+    "smee-client": "^1.0.2",
+    "standard": "^10.0.3"
+  },
+  "nodemonConfig": {
+    "exec": "npm start",
+    "watch": [
+      ".env",
+      "."
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

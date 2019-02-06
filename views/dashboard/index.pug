@@ -1,0 +1,13 @@
+extends ../layout.pug
+
+block content
+  ul.mdc-list.demo-list.mdc-list--two-line.mdc-list--avatar-list
+    each installation in installations
+      li.mdc-list-item(href=`/dashboard/${installation.id}`)
+        span.mdc-list-item__graphic: img.avatar(src=installation.account.avatar_url)
+        span.mdc-list-item__text
+          span.mdc-list-item__primary-text= installation.account.login
+          //- span.mdc-list-item__secondary-text {count} found
+        span.mdc-list-item__meta.material-icons info
+
+      li.mdc-list-divider(role='separator')

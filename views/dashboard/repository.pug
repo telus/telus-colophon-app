@@ -1,0 +1,141 @@
+extends ../layout.pug
+
+
+block content
+  - let colors = ["1abc9c", "2ecc71", "3498db", "9b59b6", "34495e", "16a085", "27ae60", "2980b9", "8e44ad", "2c3e50", "f1c40f", "e67e22", "e74c3c", "95a5a6", "f39c12", "d35400", "c0392b", "bdc3c7", "7f8c8d"]
+
+  style.
+    //- .colophon-card { border-radius: 24px 8px }
+    .colophon-card__primary { padding: 1rem }
+    .colophon-card__title { margin: 0 }
+    .colophon-card__secondary { padding: 0 1rem 8px 1rem }
+
+  - if (!data.name)
+    p No <code>colophon.yml</code> file found, you should create one!
+
+  - else
+
+    div#content
+      div.mdc-layout-grid__inner
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card
+            div.colophon-card__primary
+              h1.colophon-card__title.mdc-typography--headline2= data.colophon.about.title
+
+            div.colophon-card__secondary
+              h2.mdc-typography--subtitle1= data.colophon.about.description
+
+            div.mdc-card__actions
+              div.mdc-card__action-buttons
+                a.mdc-card__action.mdc-card__action--button.mdc-button(href='#contacts')
+                  i.mdc-button__icon.material-icons person
+                  | Contacts
+
+                a.mdc-card__action.mdc-card__action--button.mdc-button(href='#schedule')
+                  i.mdc-button__icon.material-icons schedule
+                  | Schedule
+
+                a.mdc-card__action.mdc-card__action--button.mdc-button(href='#environments')
+                  i.mdc-button__icon.material-icons domain
+                  | Environments
+
+                a.mdc-card__action.mdc-card__action--button.mdc-button(href='#references')
+                  i.mdc-button__icon.material-icons assignment
+                  | References
+
+                a.mdc-card__action.mdc-card__action--button.mdc-button(href='#source')
+                  i.mdc-button__icon.material-icons code
+                  | Source
+
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='#schedule'): span.mdi.mdi-github-circle
+
+
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card(id='contacts')
+            div.colophon-card__primary
+              h3.colophon-card__title.mdc-typography--headline5 Contacts
+
+            div.colophon-card__secondary
+              each entry in Object.entries(data.colophon.contacts)
+                - let [ group, contacts ] = entry
+                - contacts = Array.isArray(contacts) ? contacts : [ contacts ]
+                //- TODO normalize colophon objects before passing them to the view
+                div.mdc-typography--subtitle1= group
+
+                each contact in contacts
+                  ul.mdc-list.demo-list.mdc-list--two-line
+                    li.mdc-list-item
+                      span.mdc-list-item__text
+                        span.mdc-list-item__primary-text
+                          img(src=`https://ui-avatars.com/api/?name=${contact.name}&size=16&color=ffffff&background=${colors[colors.length * Math.random() | 0]}`)
+                          span= contact.name
+                        span.mdc-list-item__secondary-text= contact.address
+
+            div.mdc-card__actions
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon.mdc-button__icon.material-icons(href='#schedule') person
+
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card(id='schedule')
+            div.colophon-card__primary
+              h3.colophon-card__title.mdc-typography--headline5 Schedule
+
+            div.colophon-card__secondary
+              ul.mdc-list.demo-list.mdc-list--two-line
+                each entry in Object.entries(data.colophon.schedule)
+                  li.mdc-list-item
+                    span.mdc-list-item__text
+                      span.mdc-list-item__primary-text= entry[0]
+                      span.mdc-list-item__secondary-text= entry[1]
+
+            div.mdc-card__actions
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon.mdc-button__icon.material-icons(href='#schedule') schedule
+
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card(id='environments')
+            div.colophon-card__primary
+              h3.colophon-card__title.mdc-typography--headline5 Envrionments
+
+            div.colophon-card__secondary
+              ul.mdc-list.demo-list.mdc-list--two-line
+                each env in data.colophon.environments
+                  li.mdc-list-item
+                    span.mdc-list-item__text
+                      span.mdc-list-item__primary-text #{span= env.title} (#{code= env.type})
+                      span.mdc-list-item__secondary-text: a(href= env.uri)= env.uri
+
+            div.mdc-card__actions
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon.mdc-button__icon.material-icons(href='#schedule') domains
+
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card(id='references')
+            div.colophon-card__primary
+              h3.colophon-card__title.mdc-typography--headline5 References
+
+            div.colophon-card__secondary
+              ul.mdc-list.demo-list.mdc-list--two-line
+                each reg in data.colophon.references
+                  li.mdc-list-item
+                    span.mdc-list-item__text
+                      span.mdc-list-item__primary-text #{span= reg.title}
+                      span.mdc-list-item__secondary-text: a(href= reg.uri)= reg.uri
+
+            div.mdc-card__actions
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon.mdc-button__icon.material-icons(href='#schedule') assignments
+
+        div.mdc-layout-grid__cell--span-12
+          div.mdc-card.colophon-card(id='source')
+            div.colophon-card__primary
+              h1.colophon-card__title.mdc-typography--headline4: code= data.name
+              h2.mdc-typography--subtitle2 #{code= entries.length} colophon file(s) found
+
+            div.colophon-card__secondary
+              pre= data.content
+
+            div.mdc-card__actions
+              div.mdc-card__action-icons
+                a.mdc-icon-button.mdc-card__action.mdc-card__action--icon.mdc-button__icon.material-icons(href='#source') code
