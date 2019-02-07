@@ -23,7 +23,7 @@
     "url": "https://github.com/project-colophon/dashboard/issues"
   },
   "scripts": {
-    "dev": "nodemon",
+    "dev": "NODE_ENV=development nodemon",
     "start": "probot run ./index.js",
     "lint": "standard --fix",
     "test": "jest && standard",
