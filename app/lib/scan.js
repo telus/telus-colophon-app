@@ -8,6 +8,8 @@ let names = [
   'colophon.yml'
 ]
 
+// TODO: use regex to search for colophon file against all repo files
+
 module.exports = (github, { owner, repo }) => {
   // attempt to load all possible variations
   return Promise.all(names.map(name => {

@@ -16,6 +16,7 @@ module.exports = entries => {
           name = entry.name
           content = entry.content
           colophon = JSON.parse(entry.content)
+          // TODO: add schema validation
         } catch (err) { }
         break
 
@@ -24,6 +25,7 @@ module.exports = entries => {
           name = entry.name
           content = entry.content
           colophon = yaml.safeLoad(entry.content)
+          // TODO: add schema validation
         } catch (err) { }
         break
     }
