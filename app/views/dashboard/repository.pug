@@ -57,20 +57,15 @@ block content
               h3.colophon-card__title.mdc-typography--headline5 Contacts
 
             div.colophon-card__secondary
-              each entry in Object.entries(data.colophon.contacts)
-                - let [ group, contacts ] = entry
-                - contacts = Array.isArray(contacts) ? contacts : [ contacts ]
-                //- TODO normalize colophon objects before passing them to the view
-                div.mdc-typography--subtitle1= group
+              each contact in data.colophon.contacts
+                each entry in Object.entries(contact)
+                  - let [ group, info ] = entry
+                  div.mdc-typography--subtitle1= group
 
-                each contact in contacts
                   ul.mdc-list.demo-list.mdc-list--two-line
                     li.mdc-list-item
                       span.mdc-list-item__text
-                        span.mdc-list-item__primary-text
-                          img(src=`https://ui-avatars.com/api/?name=${contact.name}&size=16&color=ffffff&background=${colors[colors.length * Math.random() | 0]}`)
-                          span= contact.name
-                        span.mdc-list-item__secondary-text= contact.address
+                        span.mdc-list-item__primary-text= info
 
             div.mdc-card__actions
               div.mdc-card__action-icons
@@ -83,11 +78,12 @@ block content
 
             div.colophon-card__secondary
               ul.mdc-list.demo-list.mdc-list--two-line
-                each entry in Object.entries(data.colophon.schedule)
-                  li.mdc-list-item
-                    span.mdc-list-item__text
-                      span.mdc-list-item__primary-text= entry[0]
-                      span.mdc-list-item__secondary-text= entry[1]
+                - if (data.colophon.schedule)
+                  each entry in Object.entries(data.colophon.schedule)
+                    li.mdc-list-item
+                      span.mdc-list-item__text
+                        span.mdc-list-item__primary-text= entry[0]
+                        span.mdc-list-item__secondary-text= entry[1]
 
             div.mdc-card__actions
               div.mdc-card__action-icons
@@ -117,11 +113,12 @@ block content
 
             div.colophon-card__secondary
               ul.mdc-list.demo-list.mdc-list--two-line
-                each reg in data.colophon.references
-                  li.mdc-list-item
-                    span.mdc-list-item__text
-                      span.mdc-list-item__primary-text #{span= reg.title}
-                      span.mdc-list-item__secondary-text: a(href= reg.uri)= reg.uri
+                - if (data.colophon.references)
+                  each reg in data.colophon.references
+                    li.mdc-list-item
+                      span.mdc-list-item__text
+                        span.mdc-list-item__primary-text #{span= reg.title}
+                        span.mdc-list-item__secondary-text: a(href= reg.uri)= reg.uri
 
             div.mdc-card__actions
               div.mdc-card__action-icons
