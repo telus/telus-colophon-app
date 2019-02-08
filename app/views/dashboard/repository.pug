@@ -129,6 +129,7 @@ block content
             div.colophon-card__primary
               h1.colophon-card__title.mdc-typography--headline4: code= data.name
               h2.mdc-typography--subtitle2 #{code= entries.length} colophon file(s) found
+              p.mdc-typography--subtitle2 Last updated #{entries[0].lastUpdated}
 
             div.colophon-card__secondary
               pre= data.content
