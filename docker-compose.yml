@@ -3,10 +3,6 @@ version: '3.2'
 services:
   db:
     build: db
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
 
   server:
     build: app
@@ -19,15 +15,3 @@ services:
 
     volumes:
       - ${PRIVATE_KEY_PATH}:/src/key.pem
-
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
-      - WEBHOOK_PROXY_URL
-      - APP_ID
-      - PRIVATE_KEY_PATH
-      - WEBHOOK_SECRET
-      - CLIENT_ID
-      - CLIENT_SECRET
-      - SESSION_SECRET
