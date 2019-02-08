@@ -13,4 +13,3 @@ auth.get('/out', (req, res) => {
 })
 
 module.exports = auth
-

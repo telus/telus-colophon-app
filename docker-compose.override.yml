@@ -1,0 +1,11 @@
+version: '3.2'
+
+services:
+  db:
+    env_file: .env
+
+  server:
+    env_file: .env
+    command: dev
+    volumes:
+      - './app:/src'

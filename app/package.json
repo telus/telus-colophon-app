@@ -9,7 +9,6 @@
     "url": "https://github.com/project-colophon/app.git"
   },
   "license": "MIT",
-  "main": "index.js",
   "keywords": [
     "colophon",
     "app"
@@ -18,10 +17,7 @@
     "node": ">=10"
   },
   "files": [
-    "lib",
-    "ui",
-    "views",
-    "index.js"
+    "app"
   ],
   "bugs": {
     "url": "https://github.com/project-colophon/dashboard/issues"
@@ -40,15 +36,15 @@
     "express-session": "^1.15.6",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
-    "probot": "^7.2.0",
+    "pg": "^7.8.0",
+    "probot": "^7.5.0",
     "pug": "^2.0.3"
   },
   "devDependencies": {
-    "jest": "^22.4.3",
-    "nock": "^10.0.1",
-    "nodemon": "^1.17.2",
-    "smee-client": "^1.0.2",
-    "standard": "^10.0.3"
+    "jest": "^24.1.0",
+    "nock": "^10.0.6",
+    "nodemon": "^1.18.9",
+    "smee-client": "^1.0.2"
   },
   "nodemonConfig": {
     "exec": "npm start",

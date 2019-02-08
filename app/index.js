@@ -1,13 +1,14 @@
-const ui = require('./ui/')
+const routes = require('./routes/')
 
 module.exports = probot => {
-
   // assign user authentication middleware
-  probot.route('/').use(ui(probot))
+  probot.route('/').use(routes(probot))
 
-  // Opens a PR every time someone installs your app for the first time
-  // app.on('installation.created', check)
+  // // Opens a PR every time someone installs your app for the first time
+  // probot.on('installation.created', check)
+  // probot.on('issue.created', (context) => {
 
+  // })
   // async function check (context) {
     // // shows all repos you've installed the app on
     // console.log(context.payload.repositories)

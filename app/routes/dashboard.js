@@ -14,6 +14,7 @@ module.exports = probot => {
 
   // only show relevant content to the logged-in user
   dash.use(async (req, res, next) => {
+    res.locals.foo = 'bar'
     res.locals.user = req.user
     res.locals.nav = {
       avatar: {},
@@ -34,8 +35,6 @@ module.exports = probot => {
   })
 
   dash.get('/', (req, res) => {
-    res.locals.nav.breadcrumbs.push(`Welcome back ${res.locals.user.displayName}`)
-  
     res.render('dashboard/index')
   })
 
@@ -75,9 +74,7 @@ module.exports = probot => {
     const github = await probot.auth(installation_id)
 
     let entries = await scan(github, req.params)
-  
-    console.log(entries)
-    
+
     const data = parse(entries)
 
     res.render('dashboard/repository', { entries, data })

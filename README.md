@@ -1,8 +1,8 @@
-# Colophon Dashboard
+# Colophon
 
 [![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
 
-> Colophon Dashboard
+> Colophon
 
 ## Install
 

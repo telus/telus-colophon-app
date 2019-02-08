@@ -7,9 +7,7 @@ const options = {
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/auth/callback', // TODO: host url should be dynamic?
-  userAgent: `${pkg.name}@${pkg.version}`,
-  scope: ['user', 'read:org'],
-  // customHeaders: { Accept: 'application/vnd.github.machine-man-preview+json' }
+  userAgent: `${pkg.name}@${pkg.version}`
 }
 
 passport.serializeUser((user, cb) => cb(null, user))

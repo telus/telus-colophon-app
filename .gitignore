@@ -1,4 +1,5 @@
 .env
 *.log
-/coverage
-/node_modules
+*.pem
+coverage
+node_modules
