@@ -34,7 +34,7 @@ block content
 
               td.text-right
                 div.small.text-muted Last Update
-                div 4 minutes ago
+                div= day(installation.updated).fromNow()
 
               //- td.text-center
               //-   .item-action.dropdown

@@ -42,8 +42,9 @@ exports.list = org => {
 exports.count = () => {
   return pool.query(`SELECT
     installation,
-    sum(1) AS total,
-    sum(1) FILTER (WHERE colophon IS NOT NULL) AS available
+    MAX(updated) AS updated,
+    SUM(1) AS total,
+    SUM(1) FILTER (WHERE colophon IS NOT NULL) AS available
     FROM repositories GROUP BY installation`)
 }
 
