@@ -2,20 +2,94 @@
 
 [![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
 
-> Colophon
+> Standarized project metadata to specify the components, constructs and authorship of software
 
 ## Install
 
 ```bash
-npm install @colophon/dashboard
+npm install @colophon/app
 ```
 
 ## Usage
 
-```js
-import server from '@colophon/dashboard'
+### 1. Database
 
-server()
+Colophon requires a PostgreSQL database, the [database schema](./db/db.sql) will automatically be applied when using the supplied [Dockerfile](./db/Docekrfile).
+
+However, this is not recommended for production deployemnts. Please use an appropriately managed/scaled database server.
+
+### 2. Environment Variables
+
+Set up the required environment variables, this can be done in your shell environment or using a `.env` file:
+
+```env
+# Domain where this service lives
+PROJECT_DOMAIN=localhost:3000
+
+# GitHub App Info
+APP_ID=22615
+APP_SLUG=colophon-dev
+CLIENT_ID=xxxxx
+CLIENT_SECRET=xxxx
+PRIVATE_KEY_PATH=./key.pem
+
+# Use `trace` to get verbose logging or `info` to show less
+LOG_LEVEL=info
+
+# Cookie Session secret
+SESSION_SECRET=xxxxx
+
+# Database config
+POSTGRES_DB=probot
+POSTGRES_USER=probot
+POSTGRES_PASSWORD=probot
+```
+
+### 3. Launch
+
+#### a) Docker & Docker Compose
+
+```bash
+$ docker-compose up
+```
+
+#### b) Node
+
+```bash
+$ cd app
+$ npm start
+```
+
+### 4. Development Mode
+
+#### a) Docker & Docker Compose
+
+Create a `docker-compose.override.yml` file in your project root:
+
+```yaml
+version: '3.2'
+
+services:
+  db:
+    env_file: .env
+    ports: ['5432:5432']
+
+  server:
+    env_file: .env
+    command: dev
+    volumes:
+      - './app:/src'
+```
+
+```bash
+$ docker-compose up
+```
+
+#### b) Node
+
+```bash
+$ cd app
+$ npm run dev
 ```
 
 ---
