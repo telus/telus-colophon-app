@@ -3,19 +3,10 @@ extends ../layouts/base.pug
 block header
   div.page-header
     h1.page-title
-      - if (typeof title === 'object')
-        div.row.align-items-center
-          div.col-auto: a.avatar.avatar-md.rounded(href=`/${title.org}` style=`background-image: url(https://unavatar.now.sh/github/${title.org})`)
-          div.col-auto
-            - if (title.name)
-              a(href=`/${title.org}`)= title.org
-              i.fe.fe-chevron-right(style='vertical-align: middle')
-              span= title.name
-            - else
-              span= title.org
-
-      - else
-        span= title
+      div.row.align-items-center
+        div.col-auto: a.avatar.avatar-md.rounded(href=`/${org}` style=`background-image: url(https://unavatar.now.sh/github/${org})`)
+        div.col-auto
+          span= org
 
     - if (repositories)
       div.page-subtitle #[i= repositories.length] repositories

@@ -20,14 +20,13 @@ block content
             tr
               td.text-center: a.avatar.rounded(href=`/${installation.account.login}` style=`background-image: url(https://unavatar.now.sh/github/${installation.account.login})`): span.avatar-status.bg-green
 
-
               td
                 a(href=`/${installation.account.login}`)=installation.account.login
 
-              td= count[installation.id] ? `${count[installation.id].available} / ${count[installation.id].total}` : 0
+              td= count[installation.id] ? `${count[installation.id].available || 0} / ${count[installation.id].total}` : 0
 
               td
-                - const progress = count[installation.id] ? percentage(count[installation.id].available, count[installation.id].total) : 0
+                - const progress = count[installation.id] ? percentage(count[installation.id].available, count[installation.id].total) || 0 : 0
 
                 div.clearfix
                   div.float-left: strong= `${progress}%`

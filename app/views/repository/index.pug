@@ -14,6 +14,7 @@ block content
       text-transform: uppercase;
     }
 
+  //- TODO: move this section to own template
   - if (repository.colophon === null)
     div.card
       div.card-header
@@ -51,14 +52,8 @@ block content
       div.card-header
         h1.card-title #[span= repository.colophon.about.title] #[em.ml-2.small: code= repository.colophon.id]
 
-        - if (repository.colophon.schedule)
         div.card-options
-          div
-            - if (repository.colophon.schedule.launch)
-              div.small.text-muted #[i.fe.fe-sunrise.mr-2] #[span= day(repository.colophon.schedule.launch).fromNow()]
-
-            - if (repository.colophon.schedule.sunset)
-              div.small.text-muted #[i.fe.fe-sunset.mr-2] #[span= day(repository.colophon.schedule.sunset).fromNow()]
+          div.small.text-muted #[i.fe.fe-clock.mr-2] #[span= day(repository.updated).fromNow()]
 
       div.card-body
         p= repository.colophon.about.description
@@ -80,6 +75,25 @@ block content
                       div= contact.name
                       div.small.text-muted: a(href=`mailto:${contact.email}`)= contact.email
                     td.text-upper.text-right.small= contact.type
+
+      div.col-sm-6.col-lg-4
+        div.card
+          div.card-header
+            h3.card-title Schedules
+
+          div.table-responsive(style='max-height: 15rem')
+            table.table.card-table.table-striped.table-vcenter
+              tbody
+                each schedule, key in repository.colophon.schedule
+                  tr
+                    td.w-1
+                      span.stamp.stamp-md(class=`bg-${random()}`): i.fe.fe-clock
+
+                    td
+                      div= day(schedule).fromNow()
+                      div.small.text-muted= key
+
+                    //- td.w-1: a.icon(href= env.uri target='_blank'): i.fe.fe-link
 
       div.col-sm-6.col-lg-4
         div.card

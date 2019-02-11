@@ -3,32 +3,9 @@ extends ../layouts/base.pug
 block header
   div.page-header
     h1.page-title
-      - if (typeof title === 'object')
-        div.row.align-items-center
-          div.col-auto: a.avatar.avatar-md.rounded(href=`/${title.org}` style=`background-image: url(https://unavatar.now.sh/github/${title.org})`)
-          div.col-auto
-            - if (title.name)
-              a(href=`/${title.org}`)= title.org
-              i.fe.fe-chevron-right(style='vertical-align: middle')
-              span= title.name
-            - else
-              span= title.org
-
-      - else
-        span= title
-
-    - if (repositories)
-      div.page-subtitle #[i= repositories.length] repositories
-
-    - if (repositories)
-      div.page-options.d-flex
-        select.form-control.custom-select.w-auto
-          option(value='asc') a - z
-          option(value='desc') z - a
-          option(value='newest') Newest
-          option(value='oldest') Oldest
-
-        div.input-icon.ml-2
-          span.input-icon-addon
-            i.fe.fe-search
-          input.form-control.w-10(type='text', placeholder='Search Repositories')
+      div.row.align-items-center
+        div.col-auto: a.avatar.avatar-md.rounded(href=`/${org}` style=`background-image: url(https://unavatar.now.sh/github/${org})`)
+        div.col-auto
+          a(href=`/${org}`)= org
+          i.fe.fe-chevron-right(style='vertical-align: middle')
+          span= name
