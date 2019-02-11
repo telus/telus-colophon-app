@@ -6,7 +6,7 @@
 
 ## Install
 
-```bash
+```shell
 npm install @colophon/app
 ```
 
@@ -22,7 +22,7 @@ However, this is not recommended for production deployemnts. Please use an appro
 
 Set up the required environment variables, this can be done in your shell environment or using a `.env` file:
 
-```env
+```shell
 # Domain where this service lives
 PROJECT_DOMAIN=localhost:3000
 
@@ -49,13 +49,13 @@ POSTGRES_PASSWORD=probot
 
 #### a) Docker & Docker Compose
 
-```bash
+```shell
 $ docker-compose up
 ```
 
 #### b) Node
 
-```bash
+```shell
 $ cd app
 $ npm start
 ```
@@ -81,13 +81,13 @@ services:
       - './app:/src'
 ```
 
-```bash
+```shell
 $ docker-compose up
 ```
 
 #### b) Node
 
-```bash
+```shell
 $ cd app
 $ npm run dev
 ```
