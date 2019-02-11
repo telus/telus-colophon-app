@@ -1,13 +1,57 @@
-extends ../layout.pug
+extends layout.pug
 
 block content
-  ul.mdc-list.demo-list.mdc-list--two-line.mdc-list--avatar-list
-    each installation in installations
-      li.mdc-list-item(href=`/dashboard/${installation.id}`)
-        span.mdc-list-item__graphic: img.avatar(src=installation.account.avatar_url)
-        span.mdc-list-item__text
-          span.mdc-list-item__primary-text= installation.account.login
-          //- span.mdc-list-item__secondary-text {count} found
-        span.mdc-list-item__meta.material-icons info
+  - const percentage = (x, y) => Math.floor((x / y) * 100)
 
-      li.mdc-list-divider(role='separator')
+  div.card
+    div.table-responsive
+      table.table.table-hover.table-outline.table-vcenter.text-nowrap.card-table
+        thead
+          tr
+            th.text-center.w-1
+            th Org
+            th Repositories
+            th Coverage
+            th.text-right Activity
+            //- th.text-center
+
+        tbody
+          each installation in installations
+            tr
+              td.text-center: a.avatar.rounded(href=`/${installation.account.login}` style=`background-image: url(https://unavatar.now.sh/github/${installation.account.login})`): span.avatar-status.bg-green
+
+
+              td
+                a(href=`/${installation.account.login}`)=installation.account.login
+
+              td= count[installation.id] ? `${count[installation.id].available} / ${count[installation.id].total}` : 0
+
+              td
+                - const progress = count[installation.id] ? percentage(count[installation.id].available, count[installation.id].total) : 0
+
+                div.clearfix
+                  div.float-left: strong= `${progress}%`
+                div.progress.progress-xs: .progress-bar.bg-green(role='progressbar', style=`width: ${progress}%`)
+
+              td.text-right
+                div.small.text-muted Last Update
+                div 4 minutes ago
+
+              //- td.text-center
+              //-   .item-action.dropdown
+              //-     a.icon(href='javascript:void(0)', data-toggle='dropdown')
+              //-       i.fe.fe-more-vertical
+              //-     .dropdown-menu.dropdown-menu-right
+              //-       a.dropdown-item(href='javascript:void(0)')
+              //-         i.dropdown-icon.fe.fe-tag
+              //-         |  Action
+              //-       a.dropdown-item(href='javascript:void(0)')
+              //-         i.dropdown-icon.fe.fe-edit-2
+              //-         |  Another action
+              //-       a.dropdown-item(href='javascript:void(0)')
+              //-         i.dropdown-icon.fe.fe-message-square
+              //-         |  Something else here
+              //-       .dropdown-divider
+              //-       a.dropdown-item(href='javascript:void(0)')
+              //-         i.dropdown-icon.fe.fe-link
+              //-         |  Separated link

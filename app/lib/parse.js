@@ -1,33 +1,22 @@
 const yaml = require('js-yaml')
 
-module.exports = entries => {
-  let name
-  let content
+module.exports = ({ filename, content }) => {
   let colophon
 
-  // attempt to parse found files
-  entries.forEach(entry => {
-    if (!entry.content) return
+  switch (filename.slice(-2)) {
+    case 'rc':
+    case 'on':
+      try {
+        colophon = JSON.parse(content)
+      } catch (err) { }
+      break
 
-    switch (entry.name.slice(-2)) {
-      case 'rc':
-      case 'on':
-        try {
-          name = entry.name
-          content = entry.content
-          colophon = JSON.parse(entry.content)
-        } catch (err) { }
-        break
+    case 'ml':
+      try {
+        colophon = yaml.safeLoad(content)
+      } catch (err) { }
+      break
+  }
 
-      case 'ml':
-        try {
-          name = entry.name
-          content = entry.content
-          colophon = yaml.safeLoad(entry.content)
-        } catch (err) { }
-        break
-    }
-  })
-
-  return { name, content, colophon }
+  return { filename, content, colophon }
 }

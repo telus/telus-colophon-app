@@ -3,19 +3,22 @@ const bodyParser = require('body-parser')
 const cookies = require('cookie-parser')
 const express = require('express')
 const session = require('express-session')
+const day = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
 
 // import routes
 const auth = require('./auth')
 const dashboard = require('./dashboard')
-
-// test
-const db = require('../lib/db')
 
 // import libs
 const passport = require('../lib/passport')
 
 // initiate new express instance
 const app = express()
+
+// view helpers
+day.extend(relativeTime)
+app.locals.day = day
 
 // configure app variables
 app.set('view engine', 'pug')
@@ -32,20 +35,17 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // assign body parser
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
 
 // assign static path
+// TODO: this is hacky way of loading assets
+app.use(/.*\/assets/, express.static(join(__dirname, '..', 'node_modules/tabler-ui/dist/assets')))
 app.use(express.static('public'))
 
 // export app after passing 'probot' to routes
-module.exports = probot => {
-  app.use('/auth', auth)
-  app.use('/dashboard', dashboard(probot))
-  app.get('/foo', async (req, res) => {
-    const data = await db.repos()
+app.use('/auth', auth)
+app.use('/home', (req, res) => res.render('home'))
+app.use('/start', (req, res) => res.render('start'))
+app.use(dashboard)
 
-    res.status(200).json(data)
-  })
-
-  return app
-}
+module.exports = app

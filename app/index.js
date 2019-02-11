@@ -1,66 +1,58 @@
 const routes = require('./routes/')
+const db = require('./lib/db')
+const scan = require('./lib/scan')
+const parse = require('./lib/parse')
+
+async function add (repository) {
+  const [ owner, repo ] = repository.full_name.split('/')
+
+  // search for colophon files
+  const result = await scan(this.github, owner, repo)
+
+  // get colophon data
+  const data = result ? parse(result) : false
+
+  await db.upsert(this.payload.installation.id, repository, data)
+}
 
 module.exports = probot => {
-  // assign user authentication middleware
-  probot.route('/').use(routes(probot))
+  // assign ui routes
+  const route = probot.route()
+  route.get('/', (req, res, next) => res.redirect('/home'))
+  route.use(routes)
 
-  // // Opens a PR every time someone installs your app for the first time
-  // probot.on('installation.created', check)
-  // probot.on('issue.created', (context) => {
+  // installation added
+  probot.on('installation.created', async context => {
+    await Promise.all(context.payload.repositories.map(add, context))
+  })
 
-  // })
-  // async function check (context) {
-    // // shows all repos you've installed the app on
-    // console.log(context.payload.repositories)
+  // installation removed
+  probot.on('installation.deleted', async context => db.uninstall(context.payload.installation.id))
 
-    // const owner = context.payload.installation.account.login
-    // context.payload.repositories.forEach(async (repository) => {
-    //   const repo = repository.name
+  // installation updated (repose added)
+  probot.on('installation_repositories.added', async context => {
+    await Promise.all(context.payload.repositories_added.map(repo => db.upsert(context.payload.installation.id, repo)))
+  })
 
-    //   // Generates a random number to ensure the git reference isn't already taken
-    //   // NOTE: this is not recommended and just shows an example so it can work :)
+  // installation updated (repos removed)
+  probot.on('installation_repositories.removed', async context => {
+    context.payload.repositories_removed.map(repo => db.remove(context.payload.installation.id, repo.id))
+  })
 
-    //   // test
-    //   const branch = `new-branch-${Math.floor(Math.random() * 9999)}`
+  probot.on('repository.created', async context => {
+    context.log.info(context.payload)
+  })
+  probot.on('repository.deleted', async context => {
+    context.log.info(context.payload)
+  })
+  probot.on('repository.archived', async context => {
+    context.log.info(context.payload)
+  })
+  probot.on('repository.unarchived', async context => {
+    context.log.info(context.payload)
+  })
 
-    //   // Get current reference in Git
-    //   const reference = await context.github.gitdata.getReference({
-    //     repo, // the repo
-    //     owner, // the owner of the repo
-    //     ref: 'heads/master'
-    //   })
-    //   // Create a branch
-    //   await context.github.gitdata.createReference({
-    //     repo,
-    //     owner,
-    //     ref: `refs/heads/${branch}`,
-    //     sha: reference.data.object.sha // accesses the sha from the heads/master reference we got
-    //   })
-    //   // create a new file
-    //   await context.github.repos.createFile({
-    //     repo,
-    //     owner,
-    //     path: 'path/to/your/file.md', // the path to your config file
-    //     message: 'adds config file', // a commit message
-    //     content: Buffer.from('My new file is awesome!').toString('base64'),
-    //     // the content of your file, must be base64 encoded
-    //     branch // the branch name we used when creating a Git reference
-    //   })
-    //   // create a PR from that branch with the commit of our added file
-    //   await context.github.pullRequests.create({
-    //     repo,
-    //     owner,
-    //     title: 'Adding my file!', // the title of the PR
-    //     head: branch, // the branch our chances are on
-    //     base: 'master', // the branch to which you want to merge your changes
-    //     body: 'Adds my new file!', // the body of your PR,
-    //     maintainer_can_modify: true // allows maintainers to edit your app's PR
-    //   })
-    // })
-  // }
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
+  probot.on('push', async context => {
+    context.log.info(context)
+  })
 }

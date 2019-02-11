@@ -1,7 +1,10 @@
-CREATE TABLE repos (
-  ID PRIMARY KEY,
-  org VARCHAR(100),
-  name VARCHAR(100),
-  html_url VARCHAR(100),
-  description VARCHAR(100)
+CREATE TABLE repositories (
+  id VARCHAR PRIMARY KEY,
+  installation VARCHAR,
+  org VARCHAR,
+  name VARCHAR,
+  private BOOL NOT NULL DEFAULT TRUE,
+  filename VARCHAR,
+  content TEXT,
+  colophon jsonb
 );

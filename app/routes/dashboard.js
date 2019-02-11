@@ -1,84 +1,68 @@
 const { ensureLoggedIn } = require('connect-ensure-login')
 const express = require('express')
-const Octokit = require('@octokit/rest')
 
-const scan = require('../lib/scan')
-const parse = require('../lib/parse')
+const db = require('../lib/db')
 
 const dash = express.Router()
 
-const per_page = 100
-
-module.exports = probot => {
-  dash.use(ensureLoggedIn('/auth/in')) // TODO: clean urls later
+const loggedIn = ensureLoggedIn('/auth/in')
 
   // only show relevant content to the logged-in user
-  dash.use(async (req, res, next) => {
-    res.locals.foo = 'bar'
-    res.locals.user = req.user
-    res.locals.nav = {
-      avatar: {},
-      breadcrumbs: []
-    }
+function locals (req, res, next) {
+    // assign user object to view
+  res.locals.user = req.user._json
+  res.locals.installations = req.user.installations
 
-    // auth as user
-    const user = new Octokit({
-      auth: `token ${req.user.accessToken}`,
-      previews: ['machine-man']
-    })
+  if (req.params.org) {
+    res.locals.installation = res.locals.installations.find(installation => installation.account.login === req.params.org)
+  }
 
-    const { data: { installations } } = await user.apps.listInstallationsForAuthenticatedUser()
-
-    res.locals.installations = installations
-
-    next()
-  })
-
-  dash.get('/', (req, res) => {
-    res.render('dashboard/index')
-  })
-
-  // global locals manager
-  dash.get('/:installation/:owner?/:repo?', (req, res, next) => {
-    const id = parseInt(req.params.installation, 10)
-
-    const installation = res.locals.installations.find(installation => installation.id === id)
-
-    res.locals.nav.breadcrumbs.push(installation.account.login)
-    res.locals.nav.avatar = {
-      image: installation.account.avatar_url,
-      link: installation.account.html_url
-    }
-
-    if (req.params.owner && req.params.repo) {
-      res.locals.nav.breadcrumbs.push(req.params.repo)
-      res.locals.nav.avatar.link = `https://github.com/${req.params.owner}/${req.params.repo}`
-    }
-
-    next()
-  })
-
-  dash.get('/:installation', async (req, res) => {
-    const installation_id = parseInt(req.params.installation, 10)
-
-    const github = await probot.auth(installation_id)
-
-    const { data: { repositories } } = await github.apps.listRepos({ per_page: 100 }) // TODO paginate
-
-    res.render('dashboard/installation', { installation_id, repositories })
-  })
-
-  dash.get('/:installation/:owner/:repo', async (req, res) => {
-    const installation_id = parseInt(req.params.installation, 10)
-
-    const github = await probot.auth(installation_id)
-
-    let entries = await scan(github, req.params)
-
-    const data = parse(entries)
-
-    res.render('dashboard/repository', { entries, data })
-  })
-
-  return dash
+  next()
 }
+
+async function dashboard (req, res) {
+  if (res.locals.installations.length === 0) {
+    return res.render('dashboard/404')
+  }
+
+  const { rows } = await db.count()
+
+  const count = {}
+
+  // sort into count object and parse int
+  rows.forEach(row => (count[row.installation] = { total: parseInt(row.total), available: parseInt(row.available) }))
+
+  res.render('dashboard/index', { count })
+}
+
+async function org (req, res) {
+  const org = req.params.org
+
+  const { rows } = await db.list(org)
+
+  if (rows.length === 0) {
+    return res.render('org/404', { org })
+  }
+
+  res.render('org/index', { org, repositories: rows })
+}
+
+async function repository (req, res) {
+  const org = req.params.org
+  const name = req.params.name
+
+  const { rows } = await db.get(org, name)
+
+  if (rows.length === 0) {
+    return res.render('repository/404', { org, name })
+  }
+
+  // keep view logic clean
+  res.render('repository/index', { org, name, repository: rows.shift() })
+}
+
+dash.get('/dashboard', loggedIn, locals, dashboard)
+dash.get('/:org/:name', loggedIn, locals, repository)
+dash.get('/:org', loggedIn, locals, org)
+
+module.exports = dash

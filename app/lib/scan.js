@@ -1,4 +1,4 @@
-let names = [
+let files = [
   '.colophon.json',
   '.colophon.yaml',
   '.colophon.yml',
@@ -8,22 +8,17 @@ let names = [
   'colophon.yml'
 ]
 
-module.exports = (github, { owner, repo }) => {
-  // attempt to load all possible variations
-  return Promise.all(names.map(name => {
-    return github
+module.exports = async (github, owner, repo) => {
+  for (const path of files) {
+    const content = await github
       .repos
-      .getContents({ owner, repo, path: name })
-
-      .then(({ data }) => {
-        const content = Buffer.from(data.content, 'base64').toString()
-        return { name, content }
-      })
-
+      .getContents({ owner, repo, path })
+      .then(({ data }) => Buffer.from(data.content, 'base64').toString())
       // ignore 404 errors
-      .catch(() => ({ name }))
-    }))
+      .catch(() => false)
 
-    // filter out empty results
-    .then(entries => entries.filter(entry => entry.content))
+    if (content) return { filename: path, content }
+  }
+
+  return false
 }
