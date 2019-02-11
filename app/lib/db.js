@@ -8,10 +8,19 @@ const pool = new Pool({
 })
 
 // TODO: optimize for multiple inserts
-exports.upsert = (installation, repo, data) => {
-  const org = repo.full_name.split('/').shift() // separate the org part
+exports.upsert = (installation, repo) => {
+  const [org, name] = repo.full_name.split('/')
 
-  const row = [installation, repo.id, org, repo.name, repo.private, data.filename, data.content, data.colophon]
+  const row = [
+    installation,
+    repo.id,
+    org,
+    name,
+    repo.private,
+    repo.filename,
+    repo.content,
+    repo.colophon
+  ]
 
   return pool.query(`INSERT INTO
     repositories (installation, id, org, name, private, filename, content, colophon)

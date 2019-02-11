@@ -18,5 +18,5 @@ module.exports = ({ filename, content }) => {
       break
   }
 
-  return { filename, content, colophon }
+  return colophon
 }
