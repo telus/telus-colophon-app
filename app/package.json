@@ -23,7 +23,7 @@
     "index.js"
   ],
   "bugs": {
-    "url": "https://github.com/project-colophon/dashboard/issues"
+    "url": "https://github.com/project-colophon/colophon/issues"
   },
   "scripts": {
     "dev": "nodemon",

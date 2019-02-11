@@ -98,10 +98,10 @@ $ npm run dev
 > Twitter: [@ColophonID](https://twitter.com/ColophonID)
 
 [license-url]: LICENSE
-[license-image]: https://img.shields.io/github/license/project-colophon/dashboard.svg?style=for-the-badge&logo=circleci
+[license-image]: https://img.shields.io/github/license/project-colophon/colophon.svg?style=for-the-badge&logo=circleci
 
-[circle-url]: https://circleci.com/gh/project-colophon/dashboard
-[circle-image]: https://img.shields.io/circleci/project/github/project-colophon/dashboard/master.svg?style=for-the-badge&logo=circleci
+[circle-url]: https://circleci.com/gh/project-colophon/colophon
+[circle-image]: https://img.shields.io/circleci/project/github/project-colophon/colophon/master.svg?style=for-the-badge&logo=circleci
 
-[npm-url]: https://www.npmjs.com/package/@colophon/dashboard
-[npm-image]: https://img.shields.io/npm/v/@colophon/dashboard.svg?style=for-the-badge&logo=npm
+[npm-url]: https://www.npmjs.com/package/@colophon/app
+[npm-image]: https://img.shields.io/npm/v/@colophon/app.svg?style=for-the-badge&logo=npm
