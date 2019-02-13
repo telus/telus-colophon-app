@@ -1,0 +1,62 @@
+{
+  "version": "0.0.0-development",
+  "name": "@colophon/app",
+  "description": "Standarized project metadata to specify the components, constructs and authorship of software",
+  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com)",
+  "homepage": "https://colophon.id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/project-colophon/app.git"
+  },
+  "bin": {
+    "colophon": "index.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "colophon",
+    "app"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "lib",
+    "routes",
+    "views",
+    "index.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/project-colophon/colophon/issues"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@octokit/app": "^2.2.1",
+    "@octokit/graphql": "^2.0.1",
+    "@octokit/rest": "^16.15.0",
+    "@octokit/webhooks": "^5.3.2",
+    "body-parser": "^1.18.3",
+    "connect-ensure-login": "^0.1.1",
+    "connect-pg-simple": "^5.0.0",
+    "cookie-parser": "^1.4.4",
+    "dayjs": "^1.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "js-yaml": "^3.12.1",
+    "oh-my-log": "^5.0.1",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
+    "pg": "^7.8.0",
+    "pug": "^2.0.3",
+    "tabler-ui": "0.0.32",
+    "yargs": "^13.1.0"
+  },
+  "devDependencies": {
+    "nock": "^10.0.6",
+    "nodemon": "^1.18.10",
+    "smee-client": "^1.0.2"
+  }
+}
