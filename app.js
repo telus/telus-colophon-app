@@ -32,7 +32,7 @@ app.set('views', join(__dirname, 'views'))
 // assign common middlewares
 // TODO add further performance middlewares
 app.use(cookieParser())
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '2mb' }))
 
 // setup sessions
 // TODO optimize session management
@@ -41,6 +41,7 @@ app.use(session({
   secret: process.env.COLOPHON_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 }, // 1 day
   secure: new URL(process.env.COLOPHON_LINK).protocol === 'https:'
 }))
 
@@ -64,13 +65,21 @@ app.use((req, res, next) => {
   next()
 })
 
+const checkLogin = (req, res, next) => {
+  if (req.user) {
+    next()
+  } else {
+    res.redirect('/start')
+  }
+}
+
 // assign routes
 app.use('/auth', auth)
 app.use('/home', (req, res) => res.render('home'))
 app.use('/start', (req, res) => res.render('start'))
-// app.use('/:org', org)
-// app.use('/:org/:name', repository)
-app.use('/dashboard', ensureLoggedIn('/auth/in'), dashboard)
+app.use('/dashboard', checkLogin, dashboard)
+app.use('/:org/:name', repository)
+app.use('/:org', org)
 
 // listen to webhooks
 app.post('/', webhooks)
