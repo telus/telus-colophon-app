@@ -20,9 +20,8 @@ module.exports = async function dashboard (req, res) {
     return res.render('dashboard/404')
   }
 
-  const { rows } = await db.count()
-
   const count = {}
+  const { rows } = await db.count()
 
   // sort into count object and parse int
   rows.forEach(row => {

@@ -9,5 +9,5 @@ module.exports = async function org (req, res) {
     return res.render('org/404', { org })
   }
 
-  res.render('org/index', { org, repositories: rows })
+  res.render('org/index', { org, repositories: rows, total: rows[0] ? rows[0].total : 0 })
 }
