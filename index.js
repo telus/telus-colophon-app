@@ -4,18 +4,24 @@
 require('./lib/env')
 
 const yargs = require('yargs')
+const { uncaughtException, unhandledRejection } = require('uncaught-extender')
+
+const log = require('./lib/log')
+
+process.on('uncaughtException', uncaughtException)
+process.on('unhandledRejection', unhandledRejection)
+process.on('uncaughtException:*', log.exit)
+process.on('unhandledRejection:*', log.exit)
 
 const app = require('./app')
 const db = require('./lib/db')
-const log = require('./lib/log')
 
 async function main (argv) {
   // attempt database connection first
   try {
     await db.connect()
   } catch (error) {
-    log('Database connection failed')
-    process.exit(1)
+    log.exit('Database connection failed')
   }
 
   app.listen(process.env.COLOPHON_PORT || 3000, () => {
