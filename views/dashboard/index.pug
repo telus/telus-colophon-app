@@ -18,15 +18,15 @@ block content
         tbody
           each installation in installations
             tr
-              td.text-center: a.avatar.rounded(href=`/${installation.account.login}` style=`background-image: url(https://unavatar.now.sh/github/${installation.account.login})`): span.avatar-status.bg-green
+              td.text-center: a.avatar.rounded(href=`/${installation.name}` style=`background-image: url(https://unavatar.now.sh/github/${installation.name})`): span.avatar-status.bg-green
 
               td
-                a(href=`/${installation.account.login}`)=installation.account.login
+                a(href=`/${installation.name}`)=installation.name
 
-              td= count[installation.id] ? `${count[installation.id].available || 0} / ${count[installation.id].total}` : 0
+              td= `${installation.available || 0} / ${installation.total}`
 
               td
-                - const progress = count[installation.id] ? percentage(count[installation.id].available, count[installation.id].total) || 0 : 0
+                - const progress = percentage(installation.available, installation.total) || 0
 
                 div.clearfix
                   div.float-left: strong= `${progress}%`

@@ -14,6 +14,18 @@ block content
       text-transform: uppercase;
     }
 
+    .avatar-container {
+      position: relative
+    }
+
+    .avatar-initials {
+      position: absolute;
+    }
+
+    .avatar-picture {
+      background-color: transparent;
+    }
+
   //- TODO: move this section to own template
   - if (repository.colophon === null)
     div.card
@@ -73,8 +85,9 @@ block content
               tbody
                 each contact in repository.colophon.contacts
                   tr
-                    td.w-1
-                      span.avatar.avatar(class=`avatar-${random()}` style=`background-image: url(https://unavatar.now.sh/${contact.email}?fallback=false)`)= initials(contact.name)
+                    td.w-1.avatar-container
+                      span.avatar.avatar-initials(class=`avatar-${random()}`)= initials(contact.name)
+                      span.avatar.avatar-picture(style=`background-image: url(https://unavatar.now.sh/${contact.email}?fallback=false)`)
                     td
                       div= contact.name
                       div.small.text-muted: a(href=`mailto:${contact.email}`)= contact.email
@@ -113,9 +126,7 @@ block content
                       span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(env.uri)}`)
                     td
                       div= env.title
-                      div.small.text-muted= env.uri
-
-                    td.w-1: a.icon(href= env.uri target='_blank'): i.fe.fe-link
+                      div.small.text-muted: a(href= env.uri target='_blank')= env.uri
 
       div.col-sm-6.col-lg-4
         div.card
@@ -131,8 +142,7 @@ block content
                       span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(ref.uri)}`)
                     td
                       div= ref.title
-                      div.small.text-muted= ref.uri
-                    td.w-1: a.icon(href= ref.uri target='_blank'): i.fe.fe-link
+                      div.small.text-muted: a(href= ref.uri target='_blank')= ref.uri
 
     div.row.row-cards.row-deck
       div.col-sm-12

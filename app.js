@@ -69,17 +69,20 @@ const checkLogin = (req, res, next) => {
   if (req.user) {
     next()
   } else {
-    res.redirect('/start')
+    res.redirect('/home')
   }
 }
 
 // assign routes
 app.use('/auth', auth)
-app.use('/home', (req, res) => res.render('home'))
-app.use('/start', (req, res) => res.render('start'))
+// app.use('/home', (req, res) => res.render('home'))
+app.use('/home', (req, res) => res.render('start'))
+
 app.use('/dashboard', checkLogin, dashboard)
+
+app.use('/:org/refresh', org.refresh)
 app.use('/:org/:name', repository)
-app.use('/:org', org)
+app.use('/:org', org.index)
 
 // listen to webhooks
 app.post('/', webhooks)

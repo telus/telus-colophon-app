@@ -20,16 +20,10 @@ module.exports = async function dashboard (req, res) {
     return res.render('dashboard/404')
   }
 
-  const count = {}
-  const { rows } = await db.count()
+  // only show installations belonging to the user
+  const installations = (req.user.installations.map(installation => installation.id))
 
-  // sort into count object and parse int
-  rows.forEach(row => {
-    const total = parseInt(row.total)
-    const available = parseInt(row.available)
+  const { rows } = await db.installations(installations)
 
-    count[row.installation] = { total, available }
-  })
-
-  res.render('dashboard/index', { count, installations: req.user.installations })
+  res.render('dashboard/index', { installations: rows })
 }

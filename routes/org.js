@@ -1,6 +1,7 @@
 const db = require('../lib/db')
+const install = require('../lib/events/install')
 
-module.exports = async function org (req, res) {
+exports.index = async function (req, res) {
   const org = req.params.org
 
   const { rows } = await db.list(org)
@@ -10,4 +11,11 @@ module.exports = async function org (req, res) {
   }
 
   res.render('org/index', { org, repositories: rows, total: rows[0] ? rows[0].total : 0 })
+}
+
+exports.refresh = async function (req, res) {
+  const installation = await db.installation(req.org)
+  install(installation)
+
+  res.redirect('/dashboard')
 }

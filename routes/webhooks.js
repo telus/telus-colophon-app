@@ -12,6 +12,10 @@ webhooks.on('*', ({ id, name, payload: { installation } }) => {
 
 // installation added
 webhooks.on('installation.created', ({ payload: { installation } }) => {
+  // add installation
+  db.install(installation)
+
+  // scan repositories
   install(installation)
 })
 
