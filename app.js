@@ -77,7 +77,7 @@ const checkLogin = (req, res, next) => {
 }
 
 // assign routes
-app.get('/auth', auth)
+app.use('/auth', auth)
 // app.use('/home', (req, res) => res.render('home'))
 app.get('/home', (req, res) => res.render('start'))
 
