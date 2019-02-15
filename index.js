@@ -24,9 +24,9 @@ async function main (argv) {
     log.exit('Database connection failed')
   }
 
-  app.listen(process.env.COLOPHON_PORT || 3000, () => {
-    log('listening on port %s:yellow', process.env.COLOPHON_PORT || 3000)
-  })
+  const port = process.env.PORT || process.env.COLOPHON_PORT || 3000
+
+  app.listen(port, () => log('listening on port %s:yellow', port))
 }
 
 yargs // eslint-disable-line no-unused-expressions

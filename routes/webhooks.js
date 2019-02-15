@@ -1,8 +1,8 @@
 const WebhooksApi = require('@octokit/webhooks')
 const db = require('../lib/db')
 const log = require('../lib/log')
-const install = require('../lib/events/install')
-const scan = require('../lib/events/scan')
+const install = require('../lib/install')
+const scan = require('../lib/scan/repo')
 
 const webhooks = new WebhooksApi({ secret: process.env.GITHUB_WEBHOOK_SECRET })
 
@@ -12,11 +12,8 @@ webhooks.on('*', ({ id, name, payload: { installation } }) => {
 
 // installation added
 webhooks.on('installation.created', ({ payload: { installation } }) => {
-  // add installation
-  db.install(installation)
-
-  // scan repositories
-  install(installation.id, installation.account.login, installation.account.type)
+  // install & scan repositories
+  install(installation)
 })
 
 // installation removed

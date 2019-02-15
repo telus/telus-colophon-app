@@ -1,5 +1,5 @@
 const db = require('../lib/db')
-const scan = require('../lib/events/scan')
+const scan = require('../lib/scan/repo')
 
 exports.index = async function repository (req, res) {
   const org = req.params.org

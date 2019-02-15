@@ -5,6 +5,10 @@ block header
     h1.page-title Dashboard
 
     div.page-options.d-flex
-      a(href=`${process.env.GITHUB_APP_LINK}/installations/new` target='_blank').btn.btn-secondary
-        i.fe.fe-plus.mr-2
-        | Add Organization
+      div.btn-group
+        a(href=`${process.env.GITHUB_APP_LINK}/installations/new` target='_blank').btn.btn-secondary
+          i.fe.fe-plus.mr-2
+          | Add Organization
+
+        a.btn.btn-secondary(href='/dashboard/scan')
+          i.fe.fe-refresh-cw

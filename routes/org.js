@@ -1,5 +1,5 @@
 const db = require('../lib/db')
-const install = require('../lib/events/install')
+const scan = require('../lib/scan/org')
 
 exports.index = async function (req, res) {
   const org = req.params.org
@@ -24,7 +24,7 @@ exports.scan = async function (req, res) {
 
   // TODO check for existence
 
-  install(installation.id, installation.name, installation.type)
+  scan(installation.id, installation.name, installation.type)
 
   // TODO add intermediary page
 

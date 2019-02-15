@@ -81,7 +81,8 @@ app.use('/auth', auth)
 // app.use('/home', (req, res) => res.render('home'))
 app.get('/home', (req, res) => res.render('start'))
 
-app.get('/dashboard', checkLogin, dashboard)
+app.get('/dashboard/scan', checkLogin, dashboard.scan) // TODO: turn into POST
+app.get('/dashboard', checkLogin, dashboard.index)
 
 app.get('/reports', reports.index)
 app.get('/:org/scan', org.scan) // TODO: turn into POST
@@ -91,18 +92,5 @@ app.get('/:org', org.index)
 
 // listen to webhooks
 app.post('/', webhooks)
-
-// // app auth
-// const github = await probot.auth()
-
-// probot.log.info('initializing app')
-
-// // get all installations
-// const { data } = await github.apps.listInstallations({ per_page: 100 }) // TODO: paginate
-
-// probot.log.info('found %d installations', data.length)
-
-// // rebuild entire database
-// data.forEach(installation => initInstall(probot, installation))
 
 module.exports = app

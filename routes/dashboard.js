@@ -1,4 +1,8 @@
 const db = require('../lib/db')
+const log = require('../lib/log')
+const api = require('../lib/github/api')
+const install = require('../lib/install')
+
 // // only show relevant content to the logged-in user
 // dash.use((req, res, next) => {
 //   // assign user object to view
@@ -15,9 +19,9 @@ const db = require('../lib/db')
 // })
 
 // dashboard overview
-module.exports = async function dashboard (req, res) {
+exports.index = async function dashboard (req, res) {
   // only show installations belonging to the user
-  const installations = (req.user.installations.map(installation => installation.id))
+  const installations = req.user.installations.map(installation => installation.id)
 
   const { rows } = await db.installations(installations)
 
@@ -26,4 +30,18 @@ module.exports = async function dashboard (req, res) {
   }
 
   res.render('dashboard/index', { installations: rows })
+}
+
+exports.scan = async function dashboard (req, res) {
+  const octokit = await api.app()
+
+  // get all installations
+  const { data } = await octokit.apps.listInstallations({ per_page: 100 }) // TODO: paginate
+
+  log('found %d:cyan installations', data.length)
+
+  // re-install
+  data.map(install)
+
+  res.redirect('/dashboard')
 }
