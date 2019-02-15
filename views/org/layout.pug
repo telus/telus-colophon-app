@@ -8,18 +8,18 @@ block header
         div.col-auto
           span= org
 
-    - if (total)
+    if (total)
       div.page-subtitle #[i= total] repositories
 
-    - if (repositories)
+    if (repositories)
       div.page-options.d-flex
-        select.form-control.custom-select.w-auto
-          option(value='asc') a - z
-          option(value='desc') z - a
-          option(value='newest') Newest
-          option(value='oldest') Oldest
+        div.btn-toolbar
+          div.btn-group.mr-2
+            a.btn.btn-secondary(href=`/${org}/scan`): i.fe.fe-refresh-cw
 
-        div.input-icon.ml-2
-          span.input-icon-addon
-            i.fe.fe-search
-          input.form-control.w-10(type='text', placeholder='Search Repositories')
+          div.input-group
+            select.form-control.custom-select.w-auto(onchange='alert("work in progress, try again later"); return false;')
+              option(value='asc') a - z
+              option(value='desc') z - a
+              option(value='newest') Newest
+              option(value='oldest') Oldest

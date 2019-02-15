@@ -4,11 +4,7 @@ block header
   div.page-header
     h1.page-title Dashboard
 
-    - if (installations)
-      div.page-subtitle #[i= installations.length] installations
-
-    - if (installations)
-      div.page-options.d-flex
-        a(href=`${process.env.GITHUB_APP_LINK}/installations/new` target='_blank').btn.btn-secondary
-          i.fe.fe-plus.mr-2
-          | Install
+    div.page-options.d-flex
+      a(href=`${process.env.GITHUB_APP_LINK}/installations/new` target='_blank').btn.btn-secondary
+        i.fe.fe-plus.mr-2
+        | Add Organization

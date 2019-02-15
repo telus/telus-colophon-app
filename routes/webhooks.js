@@ -16,7 +16,7 @@ webhooks.on('installation.created', ({ payload: { installation } }) => {
   db.install(installation)
 
   // scan repositories
-  install(installation)
+  install(installation.id, installation.account.login, installation.account.type)
 })
 
 // installation removed
@@ -55,19 +55,21 @@ webhooks.on('repository.deleted', ({ payload: { installation, repository } }) =>
 })
 
 webhooks.on('push', ({ payload }) => {
-  const defaultBranch = payload.ref === 'refs/heads/' + payload.repository.default_branch
+  const { installation, repository, ref, commits } = payload
 
-  const colophonModified = payload.commits.find(commit => {
+  const defaultBranch = ref === 'refs/heads/' + repository.default_branch
+
+  const colophonModified = commits.find(commit => {
     return commit.added.includes('.colophon.yml') ||
       commit.modified.includes('.colophon.yml')
   })
 
   if (defaultBranch && colophonModified) {
-    log('%s:blue scanning %s:cyan', payload.installation.id, payload.repository.full_name)
+    log('%s:blue scanning %s:cyan', installation.id, repository.full_name)
 
-    scan(payload.installation, payload.repository)
+    scan(installation.id, repository.owner.login, repository.name)
   } else {
-    log('%s:blue no relevant changes to %s:cyan', payload.installation.id, payload.repository.full_name)
+    log('%s:blue no relevant changes to %s:yellow/%s:yellow', installation.id, repository.owner.login, repository.name)
   }
 })
 

@@ -1,5 +1,7 @@
 extends layout.pug
 
+include ../mixins/pagination.pug
+
 block content
   div.card
     div.table-responsive
@@ -25,16 +27,15 @@ block content
                   a.icon(href='javascript:void(0)', data-toggle='dropdown'): i.fe.fe-more-vertical
 
                   div.dropdown-menu.dropdown-menu-right
-                    a.dropdown-item(href='javascript:void(0)')
+                    a.dropdown-item(href=`/${repo.org}/${repo.name}/scan`)
                       i.dropdown-icon.fe.fe-refresh-cw
-                      |  Scan
-
-                    a.dropdown-item(href='javascript:void(0)')
-                      i.dropdown-icon.fe.fe-clipboard
-                      |  View Colophon
+                      |  Scan Repository
 
                     div.dropdown-divider
 
                     a.dropdown-item(href=`https://github.com/${repo.org}/${repo.name}` target='_blank')
                       i.dropdown-icon.fe.fe-github
                       |  GitHub
+    if pages > 1
+      div.card-footer.d-flex.justify-content-center
+        +pagination(pages, page)

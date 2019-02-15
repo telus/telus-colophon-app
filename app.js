@@ -13,9 +13,12 @@ const { pool } = require('./lib/db')
 const auth = require('./routes/auth')
 const dashboard = require('./routes/dashboard')
 const log = require('./lib/log')
-const org = require('./routes/org')
 const passport = require('./lib/passport')
-const repository = require('./routes/repository')
+
+// routes
+const org = require('./routes/org')
+const repo = require('./routes/repository')
+const reports = require('./routes/reports')
 const webhooks = require('./routes/webhooks')
 
 // initiate new express instance
@@ -74,15 +77,17 @@ const checkLogin = (req, res, next) => {
 }
 
 // assign routes
-app.use('/auth', auth)
+app.get('/auth', auth)
 // app.use('/home', (req, res) => res.render('home'))
-app.use('/home', (req, res) => res.render('start'))
+app.get('/home', (req, res) => res.render('start'))
 
-app.use('/dashboard', checkLogin, dashboard)
+app.get('/dashboard', checkLogin, dashboard)
 
-app.use('/:org/refresh', org.refresh)
-app.use('/:org/:name', repository)
-app.use('/:org', org.index)
+app.get('/reports', reports.index)
+app.get('/:org/scan', org.scan) // TODO: turn into POST
+app.get('/:org/:name/scan', repo.scan) // TODO: turn into POST
+app.get('/:org/:name', repo.index)
+app.get('/:org', org.index)
 
 // listen to webhooks
 app.post('/', webhooks)

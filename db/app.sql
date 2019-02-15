@@ -31,16 +31,17 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 CREATE TABLE installations (
   id VARCHAR PRIMARY KEY,
   name VARCHAR,
+  type VARCHAR,
   url VARCHAR,
   installed TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE VIEW orgs AS
   SELECT
-  id,
-  MAX(updated) AS updated,
-  SUM(1) AS total,
-  COALESCE(SUM(1) FILTER (WHERE colophon IS NOT NULL), 0) AS available
-  FROM installations
-  GROUP BY id
+    installation as id,
+    MAX(updated) AS updated,
+    COALESCE(SUM(1), 0) AS total,
+    COALESCE(SUM(1) FILTER (WHERE colophon IS NOT NULL), 0) AS available
+    FROM repositories
+    GROUP BY installation
 ;

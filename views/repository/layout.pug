@@ -10,5 +10,6 @@ block header
           i.fe.fe-chevron-right(style='vertical-align: middle')
           span= name
 
-    div.page-options.d-flex
-      a.btn.btn-secondary(href= repository.url ): i.fe.fe-github
+    div.page-options.d-flex.btn-group
+      a.btn.btn-secondary(href=`/${org}/${name}/scan`): i.fe.fe-refresh-cw
+      a.btn.btn-secondary(href= repository.url target='_blank'): i.fe.fe-github
