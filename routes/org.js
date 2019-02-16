@@ -1,4 +1,4 @@
-const db = require('../lib/db')
+const db = require('../lib/db/')
 const scan = require('../lib/scan/org')
 const colors = require('../lib/colors.json')
 
@@ -8,7 +8,7 @@ exports.index = async function (req, res) {
 
   const limit = 10
 
-  const { rows } = await db.list(org, limit, page * limit)
+  const { rows } = await db.repository.list(org, limit, page * limit)
 
   if (rows.length === 0) {
     return res.render('org/404', { org })
@@ -21,7 +21,7 @@ exports.index = async function (req, res) {
 }
 
 exports.scan = async function (req, res) {
-  const { rows: [ installation ] } = await db.installation(req.params.org)
+  const { rows: [ installation ] } = await db.installation.get(req.params.org)
 
   // TODO check for existence
 

@@ -1,4 +1,4 @@
-const db = require('../lib/db')
+const db = require('../lib/db/repository')
 const scan = require('../lib/scan/repo')
 
 exports.index = async function repository (req, res) {

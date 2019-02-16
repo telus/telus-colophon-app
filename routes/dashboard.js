@@ -1,4 +1,4 @@
-const db = require('../lib/db')
+const db = require('../lib/db/installation')
 const log = require('../lib/log')
 const api = require('../lib/github/api')
 const install = require('../lib/install')
@@ -10,7 +10,7 @@ exports.index = async function dashboard (req, res) {
   // only show installations belonging to the user
   const userInstallations = req.user.installations.map(installation => installation.id)
 
-  let { rows } = await db.installations(userInstallations)
+  let { rows } = await db.list(userInstallations)
 
   if (rows.length === 0) {
     return res.render('dashboard/404')

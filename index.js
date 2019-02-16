@@ -14,12 +14,12 @@ process.on('uncaughtException:*', log.exit)
 process.on('unhandledRejection:*', log.exit)
 
 const app = require('./app')
-const db = require('./lib/db')
+const { connect } = require('./lib/db/connection')
 
 async function main (argv) {
   // attempt database connection first
   try {
-    await db.connect()
+    await connect()
   } catch (error) {
     log.exit('Database connection failed')
   }

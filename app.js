@@ -1,4 +1,3 @@
-const { ensureLoggedIn } = require('connect-ensure-login')
 const { join } = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -9,7 +8,7 @@ const session = require('express-session')
 const SessionStorage = require('connect-pg-simple')(session)
 
 // import local dependencies
-const { pool } = require('./lib/db')
+const { pool } = require('./lib/db/connection')
 const auth = require('./routes/auth')
 const dashboard = require('./routes/dashboard')
 const log = require('./lib/log')

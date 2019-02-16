@@ -1,5 +1,5 @@
 const WebhooksApi = require('@octokit/webhooks')
-const db = require('../lib/db')
+const db = require('../lib/db/')
 const log = require('../lib/log')
 const install = require('../lib/install')
 const scan = require('../lib/scan/repo')
@@ -18,7 +18,7 @@ webhooks.on('installation.created', ({ payload: { installation } }) => {
 
 // installation removed
 webhooks.on('installation.deleted', ({ payload: { installation } }) => {
-  db.uninstall(installation.id)
+  db.installation.remove(installation.id)
 })
 
 // installation updated (repositories added)
@@ -26,7 +26,7 @@ webhooks.on('installation_repositories.added', ({ payload: { installation, repos
   log('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
 
   repositories_added.map(repository => {
-    db.upsert(installation.id, repository)
+    db.repository.add(installation.id, repository)
   })
 })
 
@@ -35,20 +35,20 @@ webhooks.on('installation_repositories.removed', ({ payload: { installation, rep
   log('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
 
   repositories_removed.map(repo => {
-    db.remove(installation.id, repo.id)
+    db.repository.remove(installation.id, repo.id)
   })
 })
 
 webhooks.on('repository.created', ({ payload: { installation, repository } }) => {
   log('%s:blue adding %s:cyan', installation.id, repository.full_name)
 
-  db.upsert(installation.id, repository)
+  db.repository.add(installation.id, repository)
 })
 
 webhooks.on('repository.deleted', ({ payload: { installation, repository } }) => {
   log('%s:blue removing %s:cyan', installation.id, repository.full_name)
 
-  db.remove(installation.id, repository.id)
+  db.repository.remove(installation.id, repository.id)
 })
 
 webhooks.on('push', ({ payload }) => {
