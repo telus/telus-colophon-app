@@ -3,6 +3,20 @@ extends layout.pug
 include ../mixins/pagination.pug
 
 block content
+  style.
+    .avatar-container {
+      position: relative
+    }
+
+    .avatar-initials {
+      filter: brightness(65%);
+      background-color: transparent;
+    }
+
+    .avatar-picture {
+      position: absolute;
+    }
+
   div.card
     div.table-responsive
       table.table.table-hover.table-outline.table-vcenter.text-nowrap.card-table
@@ -19,9 +33,10 @@ block content
             - const language = colors[repo.language] || { color: 'lightgray', 'ext': '?' }
 
             tr
-              td.text-center: a.avatar.rounded(href=`${link}` style=`background-color: ${language.color}`)
-                span= language.ext
-                span.avatar-status(class= repo.colophon ? 'bg-green' : 'bg-red')
+              td.w-1.avatar-container
+                span.avatar.avatar-picture.rounded(href=`${link}` style=`background-color: ${language.color}`)
+                  span.avatar-status(class= repo.colophon ? 'bg-green' : 'bg-red')
+                span.avatar.avatar-initials.rounded(style=`color: ${language.color}`)= language.ext
 
               td
                 a(href=`${link}`)=repo.name
