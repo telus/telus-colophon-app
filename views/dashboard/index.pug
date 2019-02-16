@@ -1,8 +1,6 @@
 extends layout.pug
 
 block content
-  - const percentage = (x, y) => Math.floor((x / y) * 100)
-
   div.card
     div.table-responsive
       table.table.table-hover.table-outline.table-vcenter.text-nowrap.card-table
@@ -18,19 +16,17 @@ block content
         tbody
           each installation in installations
             tr
-              td.text-center: a.avatar.rounded(href=`/${installation.name}` style=`background-image: url(https://unavatar.now.sh/github/${installation.name})`): span.avatar-status.bg-green
+              td.text-center: a.avatar.rounded(href=`/${installation.name}` style=`background-image: url(https://unavatar.now.sh/github/${installation.name})`): span.avatar-status(class=`bg-${installation.status}`)
 
               td
                 a(href=`/${installation.name}`)=installation.name
 
-              td= `${installation.available || 0} / ${installation.total}`
+              td= `${installation.available} / ${installation.total}`
 
               td
-                - const progress = percentage(installation.available, installation.total) || 0
-
                 div.clearfix
-                  div.float-left: strong= `${progress}%`
-                div.progress.progress-xs: .progress-bar.bg-green(role='progressbar', style=`width: ${progress}%`)
+                  div.float-left: strong= `${installation.progress}%`
+                div.progress.progress-xs: .progress-bar.bg-green(role='progressbar', style=`width: ${installation.progress}%`)
 
               td.text-right
                 div.small.text-muted Last Update

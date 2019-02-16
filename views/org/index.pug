@@ -8,15 +8,23 @@ block content
       table.table.table-hover.table-outline.table-vcenter.text-nowrap.card-table
         thead
           tr
-            th Repository
+            th.w-1
+            th.w-auto Repository
             th.text-right Activity
             th.text-center.w-1
 
         tbody
           each repo in repositories
+            - const link = `/${repo.org}/${repo.name}`
+            - const language = colors[repo.language] || { color: 'lightgray', 'ext': '?' }
+
             tr
+              td.text-center: a.avatar.rounded(href=`${link}` style=`background-color: ${language.color}`)
+                span= language.ext
+                span.avatar-status(class= repo.colophon ? 'bg-green' : 'bg-red')
+
               td
-                a(href=`/${repo.org}/${repo.name}`)=repo.name
+                a(href=`${link}`)=repo.name
 
               td.text-right
                 div.small.text-muted Last Update
@@ -27,15 +35,16 @@ block content
                   a.icon(href='javascript:void(0)', data-toggle='dropdown'): i.fe.fe-more-vertical
 
                   div.dropdown-menu.dropdown-menu-right
-                    a.dropdown-item(href=`/${repo.org}/${repo.name}/scan`)
+                    a.dropdown-item(href=`${link}/scan`)
                       i.dropdown-icon.fe.fe-refresh-cw
                       |  Scan Repository
 
                     div.dropdown-divider
 
-                    a.dropdown-item(href=`https://github.com/${repo.org}/${repo.name}` target='_blank')
+                    a.dropdown-item(href=`https://github.com${link}` target='_blank')
                       i.dropdown-icon.fe.fe-github
                       |  GitHub
+
     if pages > 1
       div.card-footer.d-flex.justify-content-center
         +pagination(pages, page)

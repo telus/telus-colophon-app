@@ -1,5 +1,6 @@
 const db = require('../lib/db')
 const scan = require('../lib/scan/org')
+const colors = require('../lib/colors.json')
 
 exports.index = async function (req, res) {
   const org = req.params.org
@@ -16,7 +17,7 @@ exports.index = async function (req, res) {
   const total = rows[0] ? rows[0].total : 0
   const pages = Math.ceil(total / limit)
 
-  res.render('org/index', { org, repositories: rows, total, pages, page: page + 1 })
+  res.render('org/index', { colors, org, repositories: rows, total, pages, page: page + 1 })
 }
 
 exports.scan = async function (req, res) {

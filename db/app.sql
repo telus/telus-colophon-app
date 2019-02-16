@@ -14,6 +14,7 @@ CREATE TABLE repositories (
   org VARCHAR,
   name VARCHAR,
   url VARCHAR,
+  language VARCHAR,
   private BOOL NOT NULL DEFAULT TRUE,
   filename VARCHAR,
   updated TIMESTAMP NOT NULL DEFAULT NOW(),
