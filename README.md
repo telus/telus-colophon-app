@@ -4,22 +4,34 @@
 
 > Standarized project metadata to specify the components, constructs and authorship of software
 
-## Install
-
-```bash
-npm install @colophon/app
-```
-
 ## Usage
 
-```js
-import app from '@colophon/app'
+1. install the app using `npm`
 
-app()
-```
+    ```shell
+    $ npm install --global @colophon/app
+    ```
+
+2. Database
+
+    Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./db/)
+
+3. GitHub App
+
+    Follow the [App Setup instructions](./docs/app.md) to create a GitHub App.
+
+4. Environment Configuration
+
+    Follow the [Environment Setup instructions](./docs/environment.md) to configure your Colophon environment
+
+5. Launch
+
+    ```shell
+    $ colophon
+    ```
 
 ---
-> Author: [Ahmad Nassri](https://www.ahmadnassri.com) &bull; 
+> Website: [colophon.id](https://colophon.id) &bull; 
 > Github: [@project-colophon](https://github.com/project-colophon) &bull; 
 > Twitter: [@ColophonID](https://twitter.com/ColophonID)
 
