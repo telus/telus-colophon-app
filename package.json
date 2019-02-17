@@ -21,11 +21,12 @@
     "node": ">=10"
   },
   "files": [
+    "app.js",
+    "database",
+    "index.js",
     "lib",
     "routes",
-    "views",
-    "app.js",
-    "index.js"
+    "views"
   ],
   "bugs": {
     "url": "https://github.com/project-colophon/app/issues"
