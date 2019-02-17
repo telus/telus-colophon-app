@@ -71,9 +71,9 @@ Cookie Session secret
 
 ## Database config
 
-Colophon requires a PostgreSQL database, the [database schema](../db/db.sql) will automatically be applied when using the supplied [Dockerfile](../db/Docekrfile).
+Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./database/)
 
-However, this is not recommended for production deployemnts. Please use an appropriately managed/scaled database server then direct Colophon to connect to it using the following environment variables:
+Please use an appropriately managed/scaled database server then direct Colophon to connect to it using the following environment variables:
 
 ### `POSTGRES_HOST`
 

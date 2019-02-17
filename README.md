@@ -14,7 +14,7 @@ $ npm install --global @colophon/app
 
 ##### 2. Database
 
-Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./db/)
+Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./database/)
 
 #### 3. GitHub App
 
