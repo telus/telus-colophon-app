@@ -1,5 +1,0 @@
-*.log
-/.nyc_output
-/.scripts/cc-test-reporter
-/coverage
-/node_modules

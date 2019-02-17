@@ -1,6 +1,4 @@
 .env
 *.log
 *.pem
-coverage
 node_modules
-docker-compose.override.yml
