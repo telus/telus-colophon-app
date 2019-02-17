@@ -6,6 +6,7 @@ const scan = require('../lib/scan/repo')
 
 const webhooks = new WebhooksApi({ secret: process.env.GITHUB_WEBHOOK_SECRET })
 
+// general log for all events
 webhooks.on('*', ({ id, name, payload: { installation } }) => {
   log('%s:blue %s:green %s:gray', installation.id, name, id)
 })
@@ -54,20 +55,31 @@ webhooks.on('repository.deleted', ({ payload: { installation, repository } }) =>
 webhooks.on('push', ({ payload }) => {
   const { installation, repository, ref, commits } = payload
 
-  const defaultBranch = ref === 'refs/heads/' + repository.default_branch
+  // is this the default branch?
+  const defaultBranch = ref === `refs/heads/${repository.default_branch}`
 
-  const colophonModified = commits.find(commit => {
-    return commit.added.includes('.colophon.yml') ||
-      commit.modified.includes('.colophon.yml')
+  // exit early
+  if (!defaultBranch) {
+    log('%s:blue skipping %s:yellow/%s:yellow (changes on non-default branch)', installation.id, repository.owner.login, repository.name)
+
+    return
+  }
+
+  // confirm if this commit is applied to the default branch
+  const colophonModified = commits.find(({ added, modified }) => {
+    return added.includes('.colophon.yml') || modified.includes('.colophon.yml')
   })
 
-  if (defaultBranch && colophonModified) {
-    log('%s:blue scanning %s:cyan', installation.id, repository.full_name)
+  if (!colophonModified) {
+    log('%s:blue skipping %s:yellow/%s:yellow (no change to .colophon.yml)', installation.id, repository.owner.login, repository.name)
 
-    scan(installation.id, repository.owner.login, repository.name)
-  } else {
-    log('%s:blue no relevant changes to %s:yellow/%s:yellow', installation.id, repository.owner.login, repository.name)
+    return
   }
+
+  // initiate scan
+  log('%s:blue change detected on %s:yellow/%s:yellow', installation.id, repository.owner.login, repository.name)
+
+  scan(installation.id, repository.owner.login, repository.name)
 })
 
 module.exports = webhooks.middleware
