@@ -99,12 +99,12 @@ If you're forking for the purpose of using this for your self, or your organizat
 
 Once created, GitHub will generate a few key items you'll need to pass to Colophon:
 
-| name          | environment variable |
-| ------------- | -------------------- |
-| App ID        | [`GITHUB_APP_ID`](./environment.md/#GITHUB_APP_ID)
-| Client ID     | [`GITHUB_CLIENT_ID`](./environment.md/#GITHUB_CLIENT_ID)
-| Client secret | [`GITHUB_CLIENT_SECRET`](./environment.md/#GITHUB_CLIENT_SECRET)
-| Public link   | [`GITHUB_APP_LINK`](./environment.md/#GITHUB_APP_LINK)
+| name          | environment variable                                              |
+| ------------- | ----------------------------------------------------------------- |
+| App ID        | [`GITHUB_APP_ID`](./environment.md/#GITHUB_APP_ID)                |
+| Client ID     | [`GITHUB_CLIENT_ID`](./environment.md/#GITHUB_CLIENT_ID)          |
+| Client secret | [`GITHUB_CLIENT_SECRET`](./environment.md/#GITHUB_CLIENT_SECRET)  |
+| Public link   | [`GITHUB_APP_LINK`](./environment.md/#GITHUB_APP_LINK)            |
 
 ### Generating a Private key
 

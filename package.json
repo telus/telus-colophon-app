@@ -36,8 +36,8 @@
     "lint:deps": "npx updated",
     "lint:ec": "npx editorconfig-checker .",
     "lint:js": "npx eslint .",
-    "lint:md": "npx remark --quiet --frail .",
-    "lint": "npx run-p lint:*",
+    "lint:md": "npx remark-cli --quiet --frail .",
+    "lint": "npx npm-run-all -p lint:*",
     "open:coverage": "opener coverage/lcov-report/index.html",
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },

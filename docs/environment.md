@@ -31,7 +31,7 @@ You have two methods of passing the private key to the application:
 
 > _e.g. `-----BEGIN RSA PRIVATE KEY-----\neIEogIBAAKCAQEA0d...\n-----END RSA PRIVATE KEY-----`_
 
-###### _Hint_: convert the pem file into a single line with this command
+**_Hint_: convert the pem file into a single line with this command:**
 
 ```shell
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' colophon-app.2019-03-01.private-key.pem

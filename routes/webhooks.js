@@ -22,7 +22,7 @@ webhooks.on('installation.deleted', ({ payload: { installation } }) => {
 })
 
 // installation updated (repositories added)
-webhooks.on('installation_repositories.added', ({ payload: { installation, repositories_added } }) => {
+webhooks.on('installation_repositories.added', ({ payload: { installation, repositories_added } }) => { // eslint-disable-line camelcase
   log('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
 
   repositories_added.map(repository => {
@@ -31,7 +31,7 @@ webhooks.on('installation_repositories.added', ({ payload: { installation, repos
 })
 
 // installation updated (repos removed)
-webhooks.on('installation_repositories.removed', ({ payload: { installation, repositories_removed } }) => {
+webhooks.on('installation_repositories.removed', ({ payload: { installation, repositories_removed } }) => { // eslint-disable-line camelcase
   log('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
 
   repositories_removed.map(repo => {

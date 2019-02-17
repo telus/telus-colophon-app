@@ -6,29 +6,29 @@
 
 ## Usage
 
-1. install the app using `npm`
+#### 1. install the app using `npm`
 
-    ```shell
-    $ npm install --global @colophon/app
-    ```
+```shell
+$ npm install --global @colophon/app
+```
 
-2. Database
+##### 2. Database
 
-    Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./db/)
+Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./db/)
 
-3. GitHub App
+#### 3. GitHub App
 
-    Follow the [App Setup instructions](./docs/app.md) to create a GitHub App.
+Follow the [App Setup instructions](./docs/app.md) to create a GitHub App.
 
-4. Environment Configuration
+##### 4. Environment Configuration
 
-    Follow the [Environment Setup instructions](./docs/environment.md) to configure your Colophon environment
+Follow the [Environment Setup instructions](./docs/environment.md) to configure your Colophon environment
 
-5. Launch
+##### 5. Launch
 
-    ```shell
-    $ colophon
-    ```
+```shell
+$ colophon
+```
 
 ---
 > Website: [colophon.id](https://colophon.id) &bull; 
