@@ -2,8 +2,8 @@ _extends: .github
 
 repository:
   name: app
-  description: 📋 Colophon Dashboard
-  topics: colophon, dashboard
+  description: 📋 Colophon App
+  topics: colophon,app
   homepage: https://colophon.id
   has_issues: true
   has_projects: true
