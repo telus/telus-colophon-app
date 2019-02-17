@@ -41,12 +41,6 @@ jobs:
       - attach
       - run: npm run lint
 
-  test:
-    executor: node-10
-    steps:
-      - attach
-      - run: npm run test
-
   release:
     executor: builder
     steps:
@@ -62,12 +56,9 @@ workflows:
       - lint:
           requires: [ build ]
 
-      - test:
-          requires: [ build ]
-
       - release:
           context: semantic-release
-          requires: [ build, lint, test ]
+          requires: [ build, lint ]
           filters:
             branches:
               only: master
