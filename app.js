@@ -87,8 +87,9 @@ app.get('/reports', reports.index)
 app.get('/:org/scan', org.scan) // TODO: turn into POST
 app.get('/:org/:name/scan', repo.scan) // TODO: turn into POST
 app.get('/:org/:name', repo.index)
-app.get('/:org', org.index)
+app.get('/:org', checkLogin, org.index)
 
+app.get('/', (req, res) => res.redirect('/home'))
 // listen to webhooks
 app.post('/', webhooks)
 
