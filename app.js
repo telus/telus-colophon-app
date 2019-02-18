@@ -58,8 +58,8 @@ app.use((req, res, next) => {
   next()
 })
 
-// assign static path
-app.use(express.static('static'))
+// assign static assets path
+app.use('/assets', express.static('assets'))
 
 // assign user object to view
 app.use((req, res, next) => {
@@ -82,7 +82,7 @@ app.get('/home', (req, res) => res.render('start'))
 
 app.use('/dashboard', checkLogin, dashboard)
 
-app.get('/reports', reports.index)
+app.get('/reports', checkLogin, reports.index)
 
 app.get('/:org/scan', checkLogin, org.scan) // TODO: turn into POST
 app.get('/:org/:name/scan', checkLogin, repo.scan) // TODO: turn into POST

@@ -25,6 +25,7 @@
     "database",
     "index.js",
     "lib",
+    "assets",
     "routes",
     "views"
   ],
