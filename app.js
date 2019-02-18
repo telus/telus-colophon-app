@@ -18,6 +18,7 @@ const passport = require('./lib/passport')
 const org = require('./routes/org')
 const repo = require('./routes/repository')
 const reports = require('./routes/reports')
+const search = require('./routes/search')
 const webhooks = require('./routes/webhooks')
 
 // initiate new express instance
@@ -61,18 +62,16 @@ app.use(/^(?!\/assets).+/, (req, res, next) => {
 // assign static assets path
 app.use('/assets', express.static(join(__dirname, 'assets')))
 
-// assign user object to view
+// assign user view variables
 app.use((req, res, next) => {
   res.locals.user = req.user
+  res.locals.path = req.path
+
   next()
 })
 
 const checkLogin = (req, res, next) => {
-  if (req.user) {
-    next()
-  } else {
-    res.redirect('/home')
-  }
+  return req.user ? next() : res.redirect('/home')
 }
 
 // assign routes
@@ -81,6 +80,8 @@ app.use('/auth', auth)
 app.get('/home', (req, res) => res.render('home'))
 
 app.use('/dashboard', checkLogin, dashboard)
+
+app.use('/search', checkLogin, search)
 
 app.get('/reports', checkLogin, reports.index)
 
