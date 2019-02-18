@@ -6,6 +6,13 @@ exports.index = async function (req, res) {
   const org = req.params.org
   const page = parseInt(req.query.page - 1 || 0)
 
+  const installations = req.user.installations.map(installation => installation.account.login)
+
+  // validate this user is a member of this org
+  if (!installations.includes(org)) {
+    return res.render('org/404', { org })
+  }
+
   const limit = 10
 
   const { rows } = await db.repository.list(org, limit, page * limit)
@@ -21,7 +28,16 @@ exports.index = async function (req, res) {
 }
 
 exports.scan = async function (req, res) {
-  const { rows: [ installation ] } = await db.installation.get(req.params.org)
+  const org = req.params.org
+
+  const installations = req.user.installations.map(installation => installation.account.login)
+
+  // validate this user is a member of this org
+  if (!installations.includes(org)) {
+    return res.redirect('/dashboard')
+  }
+
+  const { rows: [ installation ] } = await db.installation.get(org)
 
   // TODO check for existence
 
@@ -29,5 +45,5 @@ exports.scan = async function (req, res) {
 
   // TODO add intermediary page
 
-  res.redirect(`/${req.params.org}`)
+  res.redirect(`/${org}`)
 }

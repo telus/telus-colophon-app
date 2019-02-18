@@ -5,25 +5,43 @@ exports.index = async function repository (req, res) {
   const org = req.params.org
   const name = req.params.name
 
+  let guest = true
+
+  if (req.user) {
+    const installations = req.user.installations.map(installation => installation.account.login)
+
+    // validate this user is a member of this org
+    if (installations.includes(org)) {
+      guest = false
+    }
+  }
+
   const { rows: [ repository ] } = await db.repository.get(org, name)
   const { rows: [ installation ] } = await db.installation.get(org)
 
   if (!repository) {
     // guest mode?
-    return res.render(`repository/${req.user ? 'private' : 'public'}/404`, { org, name, installation })
+    return res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
   }
 
   // guest mode on a private repo?
-  if (repository.private && !req.user) {
+  if (guest && repository.private) {
     return res.render(`repository/public/404`, { org, name })
   }
 
-  return res.render(`repository/${req.user ? 'private' : 'public'}/index`, { org, name, repository })
+  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository })
 }
 
 exports.scan = async function (req, res) {
   const org = req.params.org
   const name = req.params.name
+
+  const installations = req.user.installations.map(installation => installation.account.login)
+
+  // validate this user is a member of this org
+  if (!installations.includes(org)) {
+    return res.redirect('/dashboard')
+  }
 
   const { rows: [ repository ] } = await db.repository.get(org, name)
 
