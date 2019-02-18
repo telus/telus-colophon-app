@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 })
 
 // assign static assets path
-app.use('/assets', express.static('assets'))
+app.use('/assets', express.static(join(__dirname, 'assets')))
 
 // assign user object to view
 app.use((req, res, next) => {
