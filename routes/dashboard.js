@@ -35,7 +35,7 @@ dashboard.get('/', async function (req, res) {
 
     row.progress = percentage(row.available, row.total)
 
-    row.status = percentage > 0 ? percentage > 50 ? 'green' : 'yellow' : 'red'
+    row.status = row.progress > 0 ? row.progress > 50 ? 'green' : 'yellow' : 'red'
 
     return row
   })
