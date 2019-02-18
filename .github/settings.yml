@@ -4,6 +4,5 @@ repository:
   name: app
   description: 📋 Colophon App
   topics: colophon,app
-  homepage: https://colophon.id
   has_issues: true
   has_projects: true
