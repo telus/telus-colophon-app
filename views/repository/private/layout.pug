@@ -1,4 +1,4 @@
-extends ../layouts/base.pug
+extends ../../layouts/session.pug
 
 block header
   div.page-header
@@ -9,7 +9,10 @@ block header
           a(href=`/${org}`)= org
           i.fe.fe-chevron-right(style='vertical-align: middle')
           span= name
+          if (repository && repository.private)
+            i.fe.fe-lock.ml-2
 
-    div.page-options.d-flex.btn-group
-      a.btn.btn-secondary(href=`/${org}/${name}/scan`): i.fe.fe-refresh-cw
-      a.btn.btn-secondary(href= repository.url target='_blank'): i.fe.fe-github
+    if (repository)
+      div.page-options.d-flex.btn-group
+        a.btn.btn-secondary(href=`/${org}/${name}/scan`): i.fe.fe-refresh-cw
+        a.btn.btn-secondary(href= repository.url target='_blank'): i.fe.fe-bb

@@ -1,0 +1,117 @@
+block content
+  - const colors = ['blue', 'azure', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'lime', 'green', 'teal', 'cyan', 'gray', 'gray']
+  - const random = (_) => colors[colors.length * Math.random() | 0]
+  - const domain = (url) => url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]
+  - const initials = (name) => {
+  -   result = name.match(/\b\w/g) || []
+  -   return (result.shift() || '') + (result.pop() || '')
+  - }
+
+  style.
+    .text-upper {
+      text-transform: uppercase;
+    }
+
+    .avatar-container {
+      position: relative
+    }
+
+    .avatar-initials {
+      position: absolute;
+    }
+
+    .avatar-picture {
+      background-color: transparent;
+    }
+
+
+  div.card
+    div.card-header
+      h1.card-title #[span= repository.colophon.about.title] #[em.ml-2.small: code= repository.colophon.id]
+
+      div.card-options
+        time.small.text-muted(data-toggle="tooltip" data-placement="left" title="Last Update" datetime= repository.updated) #[i.fe.fe-clock.mr-2] #[span= day(repository.updated).fromNow()]
+
+    div.card-body
+      p= repository.colophon.about.description
+
+  div.row.row-cards.row-deck
+    div.col-sm-6.col-lg-4
+      div.card
+        div.card-header
+          h3.card-title Contacts
+
+        div.table-responsive(style='max-height: 15rem')
+          table.table.card-table.table-striped.table-vcenter
+            tbody
+              each contact in repository.colophon.contacts
+                tr
+                  td.w-1.avatar-container
+                    span.avatar.avatar-initials(class=`avatar-${random()}`)= initials(contact.name)
+                    span.avatar.avatar-picture(style=`background-image: url(https://unavatar.now.sh/${contact.email}?fallback=false)`)
+                  td
+                    div= contact.name
+                    div.small.text-muted: a(href=`mailto:${contact.email}`)= contact.email
+                  td.text-upper.text-right.small= contact.type
+
+    div.col-sm-6.col-lg-4
+      div.card
+        div.card-header
+          h3.card-title Schedules
+
+        div.table-responsive(style='max-height: 15rem')
+          table.table.card-table.table-striped.table-vcenter
+            tbody
+              each schedule, key in repository.colophon.schedule
+                tr
+                  td.w-1
+                    span.stamp.stamp-md(class=`bg-${random()}`): i.fe.fe-clock
+
+                  td
+                    div= day(schedule).fromNow()
+                    div.small.text-muted= key
+
+                  //- td.w-1: a.icon(href= env.uri target='_blank'): i.fe.fe-link
+
+    div.col-sm-6.col-lg-4
+      div.card
+        div.card-header
+          h3.card-title Environments
+
+        div.table-responsive(style='max-height: 15rem')
+          table.table.card-table.table-striped.table-vcenter
+            tbody
+              each env in repository.colophon.environments
+                tr
+                  td.w-1
+                    span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(env.uri)}`)
+                  td
+                    div= env.title
+                    div.small.text-muted: a(href= env.uri target='_blank')= env.uri
+
+    div.col-sm-6.col-lg-4
+      div.card
+        div.card-header
+          h3.card-title References
+
+        div.table-responsive(style='max-height: 15rem')
+          table.table.card-table.table-striped.table-vcenter
+            tbody
+              each ref in repository.colophon.references
+                tr
+                  td.w-1
+                    span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(ref.uri)}`)
+                  td
+                    div= ref.title
+                    div.small.text-muted: a(href= ref.uri target='_blank')= ref.uri
+
+  div.row.row-cards.row-deck
+    div.col-sm-12
+      div.card
+        div.card-header
+          h3.card-title Source File
+
+        div.card-body
+          div.highlight
+            pre
+              code.language-plain= repository.content

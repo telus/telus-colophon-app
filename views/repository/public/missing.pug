@@ -1,0 +1,17 @@
+div.card
+  div.card-status.bg-red
+  div.card-header
+    h1.card-title Missing Colophon
+
+    div.card-options
+      time.small.text-muted(data-toggle="tooltip" data-placement="left" title="Last Update" datetime= repository.updated) #[i.fe.fe-clock.mr-2] #[span= day(repository.updated).fromNow()]
+
+  div.card-alert.alert.alert-warning.mb-0
+    i.fe.fe-alert-triangle.mr-2
+    span This repository is either missing a colophon file, or has not been indexed yet
+
+  div.card-body
+    h2 Getting Started
+    p if you're the repository owner, start by #[a(href='/auth/in') logging in] to your account to configure this repository.
+
+    div read more about the #[a(href='https://github.com/project-colophon/schema' target='_blank') colophon schema] for further information.

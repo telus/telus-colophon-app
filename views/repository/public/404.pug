@@ -1,0 +1,18 @@
+extends layout.pug
+
+block content
+  div.card
+    div.card-status.bg-red
+    div.card-header
+      h3.card-title Not Found
+      div.card-options: span.badge.badge-danger 404
+
+    div.card-alert.alert.alert-danger.mb-0
+      i.fe.fe-alert-triangle.mr-2
+      | Repository does not exist, or is not added to Colophon App installation
+
+    div.card-body
+      h2 Getting Started
+      p if you're the repository owner, start by #[a(href='/auth/in') logging in] to your account to configure this repository.
+
+      div read more about the #[a(href='https://github.com/project-colophon/schema' target='_blank') colophon schema] for further information.

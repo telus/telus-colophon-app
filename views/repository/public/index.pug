@@ -1,0 +1,7 @@
+extends layout.pug
+
+block content
+  if (repository.colophon === null)
+    include missing.pug
+  else
+    include ../repository.pug

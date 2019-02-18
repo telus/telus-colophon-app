@@ -1,25 +1,31 @@
-const db = require('../lib/db/repository')
+const db = require('../lib/db/')
 const scan = require('../lib/scan/repo')
 
 exports.index = async function repository (req, res) {
   const org = req.params.org
   const name = req.params.name
 
-  const { rows: [ repository ] } = await db.get(org, name)
+  const { rows: [ repository ] } = await db.repository.get(org, name)
+  const { rows: [ installation ] } = await db.installation.get(org)
 
   if (!repository) {
-    return res.render('repository/404', { org, name })
+    // guest mode?
+    return res.render(`repository/${req.user ? 'private' : 'public'}/404`, { org, name, installation })
   }
 
-  // keep view logic clean
-  res.render('repository/index', { org, name, repository })
+  // guest mode on a private repo?
+  if (repository.private && !req.user) {
+    return res.render(`repository/public/404`, { org, name })
+  }
+
+  return res.render(`repository/${req.user ? 'private' : 'public'}/index`, { org, name, repository })
 }
 
 exports.scan = async function (req, res) {
   const org = req.params.org
   const name = req.params.name
 
-  const { rows: [ repository ] } = await db.get(org, name)
+  const { rows: [ repository ] } = await db.repository.get(org, name)
 
   // TODO check for existence
 

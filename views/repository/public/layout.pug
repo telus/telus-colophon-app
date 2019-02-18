@@ -1,0 +1,15 @@
+extends ../../layouts/guest.pug
+
+block header
+  div.page-header
+    h1.page-title
+      div.row.align-items-center
+        div.col-auto: span.avatar.avatar-md.rounded(style=`background-image: url(https://unavatar.now.sh/github/${org})`)
+        div.col-auto
+          span= org
+          i.fe.fe-chevron-right(style='vertical-align: middle')
+          span= name
+
+    if (repository)
+      div.page-options.d-flex.btn-group
+        a.btn.btn-secondary(href= repository.url target='_blank'): i.fe.fe-github
