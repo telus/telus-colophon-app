@@ -8,36 +8,34 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- repositories table
-CREATE TABLE repositories (
-  id VARCHAR PRIMARY KEY,
-  installation VARCHAR,
-  org VARCHAR,
-  name VARCHAR,
-  url VARCHAR,
-  language VARCHAR,
-  private BOOL NOT NULL DEFAULT TRUE,
-  filename VARCHAR,
-  updated TIMESTAMP NOT NULL DEFAULT NOW(),
-  content TEXT,
-  colophon jsonb
-);
+CREATE TABLE IF NOT EXISTS repositories (id VARCHAR PRIMARY KEY);
 
--- automatically update timestamp
-CREATE TRIGGER set_timestamp
-BEFORE UPDATE ON repositories
-FOR EACH ROW
-EXECUTE PROCEDURE trigger_set_timestamp();
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS installation VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS org VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS name VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS url VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS language VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS private BOOL NOT NULL DEFAULT TRUE;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS filename VARCHAR;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS updated TIMESTAMP NOT NULL DEFAULT NOW();
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS content TEXT;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS colophon jsonb;
+
+-- trigger to automatically update timestamp
+DROP TRIGGER IF EXISTS set_timestamp ON repositories;
+
+CREATE TRIGGER set_timestamp BEFORE UPDATE ON repositories
+FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
 
 -- installations table
-CREATE TABLE installations (
-  id VARCHAR PRIMARY KEY,
-  name VARCHAR,
-  type VARCHAR,
-  url VARCHAR,
-  installed TIMESTAMP NOT NULL DEFAULT NOW()
+CREATE TABLE installations (id VARCHAR PRIMARY KEY);
+ALTER TABLE installations ADD COLUMN IF NOT EXISTS name VARCHAR,
+ALTER TABLE installations ADD COLUMN IF NOT EXISTS type VARCHAR,
+ALTER TABLE installations ADD COLUMN IF NOT EXISTS url VARCHAR,
+ALTER TABLE installations ADD COLUMN IF NOT EXISTS installed TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE VIEW orgs AS
+CREATE OR REPLACE VIEW orgs AS
   SELECT
     installation as id,
     MAX(updated) AS updated,
