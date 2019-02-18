@@ -78,7 +78,7 @@ const checkLogin = (req, res, next) => {
 // assign routes
 app.use('/auth', auth)
 // app.use('/home', (req, res) => res.render('home'))
-app.get('/home', (req, res) => res.render('start'))
+app.get('/home', (req, res) => res.render('home'))
 
 app.use('/dashboard', checkLogin, dashboard)
 
