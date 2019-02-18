@@ -10,5 +10,10 @@ block header
           i.fe.fe-plus.mr-2
           | Add Organization
 
-        a.btn.btn-secondary(href='/dashboard/scan')
-          i.fe.fe-refresh-cw
+        a.btn.btn-secondary(href='/dashboard/scan' data-toggle="tooltip" data-placement="bottom" title="Scan your organizations again")
+          i.fe.fe-crosshair.mr-2
+          | Scan Account
+
+        a.btn.btn-secondary(href='/auth/refresh' data-toggle="tooltip" data-placement="bottom" title="Refresh your logged in session to discover newly instaleld organizations")
+          i.fe.fe-refresh-cw.mr-2
+          | Refresh Session

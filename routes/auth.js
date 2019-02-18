@@ -1,5 +1,6 @@
 const express = require('express')
 
+const api = require('../lib/github/api')
 const passport = require('../lib/passport')
 
 const auth = express.Router()
@@ -9,7 +10,23 @@ auth.get('/callback', passport.authenticate('github', { failureRedirect: '/home'
 
 auth.get('/out', (req, res) => {
   req.logout()
-  res.redirect('/start')
+  res.redirect('/home')
+})
+
+// refresh the user session
+auth.get('/refresh', async function dashboard (req, res) {
+  // exit early
+  if (!req.user) return res.redirect('/home')
+
+  const octokit = await api.user(req.user.accessToken)
+
+  // fetch installations for this user
+  const { data: { installations } } = await octokit.apps.listInstallationsForAuthenticatedUser() // TODO paginate
+
+  // update user session
+  req.session.passport.user.installations = installations
+
+  res.redirect('/dashboard')
 })
 
 module.exports = auth
