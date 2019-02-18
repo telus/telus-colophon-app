@@ -15,7 +15,9 @@ block header
       div.page-options.d-flex
         div.btn-toolbar
           div.btn-group.mr-2
-            a.btn.btn-secondary(href=`/${org}/scan`): i.fe.fe-refresh-cw
+            a.btn.btn-secondary(href=`/${org}/scan`)
+              i.fe.fe-crosshair.mr-2
+              | Scan Org
 
           div.input-group
             select.form-control.custom-select.w-auto(onchange='alert("work in progress, try again later"); return false;')
