@@ -44,11 +44,11 @@
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
   "dependencies": {
-    "@colophon/schema": "^2.0.1",
+    "@colophon/schema": "^2.0.2",
     "@octokit/app": "^2.2.1",
     "@octokit/graphql": "^2.0.1",
     "@octokit/rest": "^16.15.0",
-    "@octokit/webhooks": "^5.3.2",
+    "@octokit/webhooks": "^5.3.3",
     "body-parser": "^1.18.3",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
