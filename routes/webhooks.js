@@ -8,7 +8,7 @@ const webhooks = new WebhooksApi({ secret: process.env.GITHUB_WEBHOOK_SECRET })
 
 // general log for all events
 webhooks.on('*', ({ id, name, payload: { installation } }) => {
-  log('%s:blue %s:green %s:gray', installation.id, name, id)
+  log.info('%s:blue %s:green %s:gray', installation.id, name, id)
 })
 
 // installation added
@@ -24,7 +24,7 @@ webhooks.on('installation.deleted', ({ payload: { installation } }) => {
 
 // installation updated (repositories added)
 webhooks.on('installation_repositories.added', ({ payload: { installation, repositories_added } }) => { // eslint-disable-line camelcase
-  log('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
+  log.info('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
 
   repositories_added.map(repository => {
     db.repository.add(installation.id, repository)
@@ -33,7 +33,7 @@ webhooks.on('installation_repositories.added', ({ payload: { installation, repos
 
 // installation updated (repos removed)
 webhooks.on('installation_repositories.removed', ({ payload: { installation, repositories_removed } }) => { // eslint-disable-line camelcase
-  log('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
+  log.info('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
 
   repositories_removed.map(repo => {
     db.repository.remove(installation.id, repo.id)
@@ -41,13 +41,13 @@ webhooks.on('installation_repositories.removed', ({ payload: { installation, rep
 })
 
 webhooks.on('repository.created', ({ payload: { installation, repository } }) => {
-  log('%s:blue adding %s:cyan', installation.id, repository.full_name)
+  log.info('%s:blue adding %s:cyan', installation.id, repository.full_name)
 
   db.repository.add(installation.id, repository)
 })
 
 webhooks.on('repository.deleted', ({ payload: { installation, repository } }) => {
-  log('%s:blue removing %s:cyan', installation.id, repository.full_name)
+  log.info('%s:blue removing %s:cyan', installation.id, repository.full_name)
 
   db.repository.remove(installation.id, repository.id)
 })
@@ -60,7 +60,7 @@ webhooks.on('push', ({ payload }) => {
 
   // exit early
   if (!defaultBranch) {
-    log('%s:blue skipping %s:yellow/%s:yellow (changes on non-default branch)', installation.id, repository.owner.login, repository.name)
+    log.info('%s:blue skipping %s:yellow/%s:yellow (changes on non-default branch)', installation.id, repository.owner.login, repository.name)
 
     return
   }
@@ -71,13 +71,13 @@ webhooks.on('push', ({ payload }) => {
   })
 
   if (!colophonModified) {
-    log('%s:blue skipping %s:yellow/%s:yellow (no change to .colophon.yml)', installation.id, repository.owner.login, repository.name)
+    log.info('%s:blue skipping %s:yellow/%s:yellow (no change to .colophon.yml)', installation.id, repository.owner.login, repository.name)
 
     return
   }
 
   // initiate scan
-  log('%s:blue change detected on %s:yellow/%s:yellow', installation.id, repository.owner.login, repository.name)
+  log.info('%s:blue change detected on %s:yellow/%s:yellow', installation.id, repository.owner.login, repository.name)
 
   scan(installation.id, repository.owner.login, repository.name)
 })

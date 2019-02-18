@@ -26,7 +26,7 @@ async function main (argv) {
 
   const port = process.env.PORT || process.env.COLOPHON_PORT || 3000
 
-  app.listen(port, () => log('listening on port %s:yellow', port))
+  app.listen(port, () => log.info('listening on port %s:yellow', port))
 }
 
 yargs // eslint-disable-line no-unused-expressions

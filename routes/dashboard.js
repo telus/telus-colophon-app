@@ -49,7 +49,7 @@ dashboard.get('/scan', async function (req, res) {
   // fetch installations for this user
   const { data: { installations } } = await octokit.apps.listInstallationsForAuthenticatedUser() // TODO paginate
 
-  log('found %d:cyan installations', installations.length)
+  log.info('found %d:cyan installations', installations.length)
 
   // re-install user apps
   installations.map(install)
