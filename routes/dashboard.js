@@ -1,3 +1,5 @@
+const express = require('express')
+
 const db = require('../lib/db/installation')
 const log = require('../lib/log')
 const api = require('../lib/github/api')
@@ -5,8 +7,10 @@ const install = require('../lib/install')
 
 const percentage = (x, y) => Math.floor((x / y) * 100)
 
+const dashboard = express.Router()
+
 // dashboard overview
-exports.index = async function dashboard (req, res) {
+dashboard.get('/', async function (req, res) {
   // refresh session when user is redirected back from github
   if (req.query.installation_id && req.query.setup_action) {
     return res.redirect('/auth/refresh')
@@ -37,9 +41,9 @@ exports.index = async function dashboard (req, res) {
   })
 
   res.render('dashboard/index', { installations })
-}
+})
 
-exports.scan = async function dashboard (req, res) {
+dashboard.get('/scan', async function (req, res) {
   const octokit = await api.user(req.user.accessToken)
 
   // fetch installations for this user
@@ -51,4 +55,6 @@ exports.scan = async function dashboard (req, res) {
   installations.map(install)
 
   res.redirect('/dashboard')
-}
+})
+
+module.exports = dashboard
