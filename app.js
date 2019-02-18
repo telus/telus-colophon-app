@@ -52,7 +52,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // custom express logging
-app.use((req, res, next) => {
+app.use(/^(?!\/assets).+/, (req, res, next) => {
   // queue the log to send as soon as the response is finished
   res.on('finish', () => log('%s:blue %s:gray %s:green', req.method, req.originalUrl, res.statusCode))
   next()
