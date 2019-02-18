@@ -1,5 +1,9 @@
 const db = require('../lib/db/')
 const scan = require('../lib/scan/repo')
+const parser = require('@colophon/schema')
+
+// capture error tree
+const parseErrors = content => parser(content).catch(error => error.name === 'ColophonError' ? error.errors : error.message)
 
 exports.index = async function repository (req, res) {
   const org = req.params.org
@@ -29,7 +33,15 @@ exports.index = async function repository (req, res) {
     return res.render(`repository/public/404`, { org, name })
   }
 
-  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository })
+  // errors placeholder
+  let errors
+
+  // was this a valid colophon
+  if (repository.content !== null && repository.colophon === null) {
+    errors = await parseErrors(repository.content)
+  }
+
+  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
 }
 
 exports.scan = async function (req, res) {

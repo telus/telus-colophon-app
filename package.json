@@ -44,6 +44,7 @@
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
   "dependencies": {
+    "@colophon/schema": "^2.0.1",
     "@octokit/app": "^2.2.1",
     "@octokit/graphql": "^2.0.1",
     "@octokit/rest": "^16.15.0",
@@ -55,7 +56,6 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "js-yaml": "^3.12.1",
     "oh-my-log": "^5.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
@@ -63,7 +63,7 @@
     "pug": "^2.0.3",
     "tabler-ui": "0.0.32",
     "uncaught-extender": "^1.0.1",
-    "yargs": "^13.2.0"
+    "yargs": "^13.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

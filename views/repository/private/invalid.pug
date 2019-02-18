@@ -1,0 +1,46 @@
+div.card
+  div.card-status.bg-red
+  div.card-header
+    h1.card-title Invalid Colophon
+
+    div.card-options
+      time.small.text-muted(data-toggle="tooltip" data-placement="left" title="Last Update" datetime= repository.updated) #[i.fe.fe-clock.mr-2] #[span= day(repository.updated).fromNow()]
+
+  div.card-alert.alert.alert-danger.mb-0
+    i.fe.fe-alert-triangle.mr-2
+    span The Colophon file provided for this repository is invalid
+
+  div.card-body
+    p #[code .colophon.yml] content:
+    div.highlight
+      pre
+        code.language-yaml= repository.content
+
+  div.card-header
+    h2.card-title Parser Errors
+
+  if typeof errors === 'string'
+    div.card-body
+      pre: code= errors
+  else
+    div.card-alert.alert.alert-info.mb-0
+      i.fe.fe-alert-triangle.mr-2
+      span Please consult the #[a(href='https://github.com/project-colophon/schema' target='_blank') colophon schema] specification.
+    div.table-responsive
+      table.table.table-hover.table-outline.table-vcenter.text-nowrap.card-table
+        thead
+          tr
+            th.w-1 Path
+            th.w-auto Error
+            th.w-1
+
+        tbody
+          each error in errors
+            tr
+              td: code= error.dataPath || '.'
+              td= error.message
+              td
+                if (error.params.allowedValues)
+                  each value in error.params.allowedValues
+                    code.ml-2= value
+
