@@ -10,6 +10,10 @@ exports.index = async function dashboard (req, res) {
   // only show installations belonging to the user
   const userInstallations = req.user.installations.map(installation => installation.id)
 
+  if (userInstallations.length === 0) {
+    return res.render('dashboard/404')
+  }
+
   let { rows } = await db.list(userInstallations)
 
   if (rows.length === 0) {
@@ -31,15 +35,15 @@ exports.index = async function dashboard (req, res) {
 }
 
 exports.scan = async function dashboard (req, res) {
-  const octokit = await api.app()
+  const octokit = await api.user(req.user.accessToken)
 
-  // get all installations
-  const { data } = await octokit.apps.listInstallations({ per_page: 100 }) // TODO: paginate
+  // fetch installations for this user
+  const { data: { installations } } = await octokit.apps.listInstallationsForAuthenticatedUser() // TODO paginate
 
-  log('found %d:cyan installations', data.length)
+  log('found %d:cyan installations', installations.length)
 
-  // re-install
-  data.map(install)
+  // re-install user apps
+  installations.map(install)
 
   res.redirect('/dashboard')
 }
