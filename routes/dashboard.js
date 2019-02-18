@@ -7,6 +7,11 @@ const percentage = (x, y) => Math.floor((x / y) * 100)
 
 // dashboard overview
 exports.index = async function dashboard (req, res) {
+  // refresh session when user is redirected back from github
+  if (req.query.installation_id && req.query.setup_action) {
+    return res.redirect('/auth/refresh')
+  }
+
   // only show installations belonging to the user
   const userInstallations = req.user.installations.map(installation => installation.id)
 
