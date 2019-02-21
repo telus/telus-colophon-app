@@ -1,4 +1,4 @@
-# Colophon
+# ![Colophon](https://github.com/project-colophon/brand/blob/master/logo.svg)
 
 [![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
 
