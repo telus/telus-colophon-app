@@ -54,24 +54,23 @@ block content
                     div.small.text-muted: a(href=`mailto:${contact.email}`)= contact.email
                   td.text-upper.text-right.small= contact.type
 
-    div.col-sm-6.col-lg-4
-      div.card
-        div.card-header
-          h3.card-title Schedules
+    if repository.colophon.schedule
+      div.col-sm-6.col-lg-4
+        div.card
+          div.card-header
+            h3.card-title Schedules
 
-        div.table-responsive(style='max-height: 15rem')
-          table.table.card-table.table-striped.table-vcenter
-            tbody
-              each schedule, key in repository.colophon.schedule
-                tr
-                  td.w-1
-                    span.stamp.stamp-md(class=`bg-${random()}`): i.fe.fe-clock
+          div.table-responsive(style='max-height: 15rem')
+            table.table.card-table.table-striped.table-vcenter
+              tbody
+                each schedule, key in repository.colophon.schedule
+                  tr
+                    td.w-1
+                      span.stamp.stamp-md(class=`bg-${random()}`): i.fe.fe-clock
 
-                  td
-                    div= day(schedule).fromNow()
-                    div.small.text-muted= key
-
-                  //- td.w-1: a.icon(href= env.uri target='_blank'): i.fe.fe-link
+                    td
+                      div= day(schedule).fromNow()
+                      div.small.text-muted= key
 
     div.col-sm-6.col-lg-4
       div.card
@@ -89,21 +88,22 @@ block content
                     div= env.title
                     div.small.text-muted: a(href= env.uri target='_blank')= env.uri
 
-    div.col-sm-6.col-lg-4
-      div.card
-        div.card-header
-          h3.card-title References
+    if repository.colophon.references
+      div.col-sm-6.col-lg-4
+        div.card
+          div.card-header
+            h3.card-title References
 
-        div.table-responsive(style='max-height: 15rem')
-          table.table.card-table.table-striped.table-vcenter
-            tbody
-              each ref in repository.colophon.references
-                tr
-                  td.w-1
-                    span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(ref.uri)}`)
-                  td
-                    div= ref.title
-                    div.small.text-muted: a(href= ref.uri target='_blank')= ref.uri
+          div.table-responsive(style='max-height: 15rem')
+            table.table.card-table.table-striped.table-vcenter
+              tbody
+                each ref in repository.colophon.references
+                  tr
+                    td.w-1
+                      span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(ref.uri)}`)
+                    td
+                      div= ref.title
+                      div.small.text-muted: a(href= ref.uri target='_blank')= ref.uri
 
   div.row.row-cards.row-deck
     div.col-sm-12
