@@ -81,7 +81,7 @@ Branch or tag created.
 
 Branch or tag deleted.
 
-#### Push [ℹ️][deleteevent]
+#### Push [ℹ️][pushevent]
 
 Git push to a repository.
 
