@@ -1,0 +1,27 @@
+version: 2.0
+
+id: colophon-app
+
+about:
+  title: Colphon App
+  description: Colophon
+
+contacts:
+  - type: author
+    name: Ahmad Nassri
+    email: ahmad@codeinchaos.com
+
+schedule:
+  launch: 2019-02-17T22:45:50.132Z
+
+environments:
+  - type: git
+    title: Source Code
+    uri: https://github.com/project-colophon/app
+  - type: web
+    title: Homepage
+    uri: https://colophon.id
+
+references:
+  - title: Documentation
+    uri: https://github.com/project-colophon/app
