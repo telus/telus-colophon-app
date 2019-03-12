@@ -4,12 +4,21 @@ id: colophon-app
 
 about:
   title: Colphon App
-  description: Colophon
+  description: Colophon Application Metadata Catalogue
 
 contacts:
   - type: author
     name: Ahmad Nassri
     email: ahmad@codeinchaos.com
+    github: ahmadnassri
+  - type: developer
+    name: Enrico Sacchetti
+    email: enrico@codeinchaos.com
+    github: theetrain
+  - type: developer
+    name: Kyle Spaans
+    email: kyle@codeinchaos.com
+    github: kspaans
 
 schedule:
   launch: 2019-02-17T22:45:50.132Z
@@ -18,10 +27,10 @@ environments:
   - type: git
     title: Source Code
     uri: https://github.com/project-colophon/app
-  - type: web
+  - type: website
     title: Homepage
     uri: https://colophon.id
 
 references:
   - title: Documentation
-    uri: https://github.com/project-colophon/app
+    uri: https://docs.colophon.id/
