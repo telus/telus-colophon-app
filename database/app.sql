@@ -1,12 +1,3 @@
--- trigger to update timestamp
-CREATE OR REPLACE FUNCTION trigger_set_timestamp()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated = NOW();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
 -- repositories table
 CREATE TABLE IF NOT EXISTS repositories (id VARCHAR PRIMARY KEY);
 
@@ -20,12 +11,6 @@ ALTER TABLE repositories ADD COLUMN IF NOT EXISTS filename VARCHAR;
 ALTER TABLE repositories ADD COLUMN IF NOT EXISTS updated TIMESTAMP NOT NULL DEFAULT NOW();
 ALTER TABLE repositories ADD COLUMN IF NOT EXISTS content TEXT;
 ALTER TABLE repositories ADD COLUMN IF NOT EXISTS colophon jsonb;
-
--- trigger to automatically update timestamp
-DROP TRIGGER IF EXISTS set_timestamp ON repositories;
-
-CREATE TRIGGER set_timestamp BEFORE UPDATE ON repositories
-FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
 
 -- installations table
 CREATE TABLE installations (id VARCHAR PRIMARY KEY);

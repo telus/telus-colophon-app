@@ -24,7 +24,6 @@ block content
       background-color: transparent;
     }
 
-
   div.card
     div.card-header
       h1.card-title #[span= repository.colophon.about.title] #[em.ml-2.small: code= repository.colophon.id]
@@ -34,6 +33,11 @@ block content
 
     div.card-body
       p= repository.colophon.about.description
+
+    if day(repository.updated).isBefore(day().subtract(6, 'month'))
+      div.card-alert.alert.alert-warning.mb-0
+        i.fe.fe-alert-triangle.mr-2
+        span= 'Colophon file is more than 6 months old! Consider checking it for accuracy.'
 
   div.row.row-cards.row-deck
     div.col-sm-6.col-lg-4

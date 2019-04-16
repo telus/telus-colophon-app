@@ -71,7 +71,7 @@ Cookie Session secret
 
 ## Database config
 
-Colophon requires a PostgreSQL database instance, you can find the database initialization scheams under the [`database` folder](./database/)
+Colophon requires a PostgreSQL database instance, you can find the database initialization schemas under the [`database` folder](./database/)
 
 Please use an appropriately managed/scaled database server then direct Colophon to connect to it using the following environment variables:
 
