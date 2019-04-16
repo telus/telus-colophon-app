@@ -45,17 +45,17 @@
   },
   "dependencies": {
     "@colophon/schema": "^2.0.3",
-    "@octokit/app": "^2.2.2",
-    "@octokit/graphql": "^2.1.0",
-    "@octokit/rest": "^16.23.2",
-    "@octokit/webhooks": "^6.0.0",
+    "@octokit/app": "^2.2.4",
+    "@octokit/graphql": "^2.1.1",
+    "@octokit/rest": "^16.24.1",
+    "@octokit/webhooks": "^6.0.1",
     "body-parser": "^1.18.3",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
     "dayjs": "^1.8.12",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "express-session": "^1.15.6",
+    "express-session": "^1.16.1",
     "oh-my-log": "^5.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
@@ -67,6 +67,6 @@
     "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.11"
   }
 }
