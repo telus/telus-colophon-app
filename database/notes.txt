@@ -1,0 +1,15 @@
+# it defaulted to `postgres` database with the pg:alpine container
+docker run -p 5432:5432 postgres:alpine
+psql -h localhost -U postgres
+psql -h localhost -U postgres -p 5432 < database/app.sql 
+psql -h localhost -U postgres -p 5432 < database/sessions.sql
+
+# setup app, install app, then go through "add organizatin" step
+# no visible change between adding org and installing org, must click SCAN
+
+
+# 1. search by name
+# 2. list those w/ colophon
+# 3. middleware for exposing colophon ID in FE apps
+
+# select colophon, name, org from repositories where colophon @> '{"contacts": [{"name": "Ian Penney"}]}';
