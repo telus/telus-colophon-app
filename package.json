@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@colophon/schema": "^2.0.3",
-    "@octokit/app": "^2.2.4",
+    "@octokit/app": "^3.0.0",
     "@octokit/graphql": "^2.1.1",
     "@octokit/rest": "^16.24.1",
     "@octokit/webhooks": "^6.0.1",
