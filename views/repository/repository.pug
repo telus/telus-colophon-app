@@ -1,7 +1,9 @@
 block content
   - const colors = ['blue', 'azure', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'lime', 'green', 'teal', 'cyan', 'gray', 'gray']
   - const random = (_) => colors[colors.length * Math.random() | 0]
-  - const domain = (url) => url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]
+  - const protocols = ['https', 'http', 'redis', 'rediss', 'ssh', 'udp', 'app']
+  - const regex = new RegExp(`^(${protocols.join('|')})?\:\/\/([^\/?#]+)(?:[\/?#]|$)`, 'i')
+  - const domain = (url) => url.match(regex)[1]
   - const initials = (name) => {
   -   result = name.match(/\b\w/g) || []
   -   return (result.shift() || '') + (result.pop() || '')
