@@ -45,28 +45,36 @@
   },
   "dependencies": {
     "@colophon/schema": "^2.0.3",
-    "@octokit/app": "^2.2.4",
-    "@octokit/graphql": "^2.1.1",
-    "@octokit/rest": "^16.24.1",
-    "@octokit/webhooks": "^6.0.1",
-    "body-parser": "^1.18.3",
+    "@octokit/app": "^3.0.0",
+    "@octokit/graphql": "^2.1.2",
+    "@octokit/rest": "^16.27.1",
+    "@octokit/webhooks": "^6.2.2",
+    "body-parser": "^1.19.0",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
-    "dayjs": "^1.8.12",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+    "dayjs": "^1.8.14",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
     "express-session": "^1.16.1",
     "oh-my-log": "^5.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
-    "pg": "^7.9.0",
+    "pg": "^7.11.0",
     "pug": "^2.0.3",
     "tabler-ui": "^0.0.34",
-    "tap": "^12.6.1",
+    "tap": "^14.2.0",
     "uncaught-extender": "^1.0.1",
-    "yargs": "^13.2.2"
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
-    "nodemon": "^1.18.11"
+    "@ahmadnassri/eslint-config": "^1.1.4",
+    "@ahmadnassri/remark-config": "^1.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.19.1"
   }
 }
