@@ -1,6 +1,16 @@
 extends ../layouts/session.pug
 
 block header
+  script(type='text/javascript').
+    function changeSortingMethod(sortingMethod) {
+      const { origin, pathname, search } = window.location
+      const query = new URLSearchParams(search)
+
+      query.set('sorting_method', sortingMethod)
+
+      window.location.href = `${origin}${pathname}?${query.toString()}`
+    }
+
   div.page-header
     h1.page-title
       div.row.align-items-center
@@ -20,8 +30,8 @@ block header
               | Scan Org
 
           div.input-group
-            select.form-control.custom-select.w-auto(onchange='alert("work in progress, try again later"); return false;')
-              option(value='asc') a - z
-              option(value='desc') z - a
-              option(value='newest') Newest
-              option(value='oldest') Oldest
+            select.form-control.custom-select.w-auto(onchange='changeSortingMethod(this.value)')
+              option(value='asc', selected= sortingMethod == 'asc') a - z
+              option(value='desc', selected= sortingMethod == 'desc') z - a
+              option(value='newest', selected= sortingMethod == 'newest') Newest
+              option(value='oldest', selected= sortingMethod == 'oldest') Oldest
