@@ -6,7 +6,7 @@
   "homepage": "https://colophon.id",
   "repository": {
     "type": "git",
-    "url": "https://github.com/project-colophon/app.git"
+    "url": "https://github.com/telus/telus-colophon-app.git"
   },
   "bin": {
     "colophon": "index.js"
@@ -30,7 +30,7 @@
     "views"
   ],
   "bugs": {
-    "url": "https://github.com/project-colophon/app/issues"
+    "url": "https://github.com/telus/telus-colophon-app/issues"
   },
   "scripts": {
     "dev": "nodemon",
@@ -40,6 +40,8 @@
     "lint:js": "npx eslint .",
     "lint:md": "npx remark-cli --quiet --frail .",
     "lint": "npx npm-run-all -p lint:*",
+    "release:dryrun": "npx semantic-release --dry-run --branch $(git describe --contains --all HEAD)",
+    "release": "npx semantic-release",
     "open:coverage": "opener coverage/lcov-report/index.html",
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
@@ -69,6 +71,7 @@
   "devDependencies": {
     "@ahmadnassri/eslint-config": "^1.1.4",
     "@ahmadnassri/remark-config": "^1.0.2",
+    "@ahmadnassri/semantic-release-config": "^1.0.8",
     "eslint": "^6.0.1",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.0",
