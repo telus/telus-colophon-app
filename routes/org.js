@@ -47,7 +47,7 @@ exports.scan = async function (req, res) {
     return res.redirect('/dashboard')
   }
 
-  const { rows: [ installation ] } = await db.installation.get(org)
+  const { rows: [installation] } = await db.installation.get(org)
 
   // TODO check for existence
 

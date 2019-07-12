@@ -20,8 +20,8 @@ exports.index = async function repository (req, res) {
     }
   }
 
-  const { rows: [ repository ] } = await db.repository.get(org, name)
-  const { rows: [ installation ] } = await db.installation.get(org)
+  const { rows: [repository] } = await db.repository.get(org, name)
+  const { rows: [installation] } = await db.installation.get(org)
 
   if (!repository) {
     // guest mode?
@@ -55,7 +55,7 @@ exports.scan = async function (req, res) {
     return res.redirect('/dashboard')
   }
 
-  const { rows: [ repository ] } = await db.repository.get(org, name)
+  const { rows: [repository] } = await db.repository.get(org, name)
 
   // TODO check for existence
 
