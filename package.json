@@ -37,7 +37,7 @@
     "start": "node index.js",
     "lint:deps": "npx updated",
     "lint:ec": "npx editorconfig-checker .",
-    "lint:js": "npx eslint .",
+    "lint:js": "eslint .",
     "lint:md": "npx remark-cli --quiet --frail .",
     "lint": "npx npm-run-all -p lint:*",
     "release:dryrun": "npx semantic-release --dry-run --branch $(git describe --contains --all HEAD)",
