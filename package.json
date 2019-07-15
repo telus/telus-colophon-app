@@ -46,11 +46,11 @@
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
   "dependencies": {
-    "@telus/colophon-schema": "^3.0.0",
-    "@octokit/app": "^3.0.2",
-    "@octokit/graphql": "^2.1.3",
-    "@octokit/rest": "^16.28.3",
+    "@octokit/app": "^4.0.0",
+    "@octokit/graphql": "^3.0.1",
+    "@octokit/rest": "^16.28.4",
     "@octokit/webhooks": "^6.2.2",
+    "@telus/colophon-schema": "^3.0.0",
     "body-parser": "^1.19.0",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
