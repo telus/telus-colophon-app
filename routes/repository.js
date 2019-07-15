@@ -1,6 +1,6 @@
 const db = require('../lib/db/')
 const scan = require('../lib/scan/repo')
-const parser = require('@colophon/schema')
+const parser = require('@telus/colophon-schema')
 
 // capture error tree
 const parseErrors = content => parser(content).catch(error => error.name === 'ColophonError' ? error.errors : error.message)
