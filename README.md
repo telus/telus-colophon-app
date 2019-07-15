@@ -1,6 +1,6 @@
 # ![Colophon](https://github.com/project-colophon/brand/blob/master/logo.svg)
 
-[![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
+[![License][license-image]][license-url] [![version][npm-image]][npm-url]
 
 > Standarized project metadata to specify the components, constructs and authorship of software
 
@@ -9,7 +9,7 @@
 #### 1. install the app using `npm`
 
 ```shell
-$ npm install --global @colophon/app
+$ npm install --global @telus/colophon-app
 ```
 
 ##### 2. Database
@@ -31,15 +31,11 @@ $ colophon
 ```
 
 ---
-> Website: [colophon.id](https://colophon.id) &bull; 
-> Github: [@project-colophon](https://github.com/project-colophon) &bull; 
-> Twitter: [@ColophonID](https://twitter.com/ColophonID)
+> Website: [colophon.id](https://colophon.telus.digital) &bull;
+> Github: [@telus Colophon](https://github.com/telus/telus-colophon-app) &bull;
 
 [license-url]: LICENSE
-[license-image]: https://img.shields.io/github/license/project-colophon/app.svg?style=for-the-badge&logo=circleci
+[license-image]: https://img.shields.io/github/license/telus/telus-colophon-app/app.svg?style=for-the-badge&logo=circleci
 
-[circle-url]: https://circleci.com/gh/project-colophon/workflows/app
-[circle-image]: https://img.shields.io/circleci/project/github/project-colophon/app/master.svg?style=for-the-badge&logo=circleci
-
-[npm-url]: https://www.npmjs.com/package/@colophon/app
-[npm-image]: https://img.shields.io/npm/v/@colophon/app.svg?style=for-the-badge&logo=npm
+[npm-url]: https://www.npmjs.com/package/@telus/telus-colophon-app
+[npm-image]: https://img.shields.io/npm/v/@telus/telus-colophon-app.svg?style=for-the-badge&logo=npm
