@@ -78,21 +78,22 @@ block content
                       div= day(schedule).fromNow()
                       div.small.text-muted= key
 
-    div.col-sm-6.col-lg-4
-      div.card
-        div.card-header
-          h3.card-title Environments
+    if repository.colophon.environments
+      div.col-sm-6.col-lg-4
+        div.card
+          div.card-header
+            h3.card-title Environments
 
-        div.table-responsive(style='max-height: 15rem')
-          table.table.card-table.table-striped.table-vcenter
-            tbody
-              each env in repository.colophon.environments
-                tr
-                  td.w-1
-                    span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(env.uri)}`)
-                  td
-                    div= env.title
-                    div.small.text-muted: a(href= env.uri target='_blank')= env.uri
+          div.table-responsive(style='max-height: 15rem')
+            table.table.card-table.table-striped.table-vcenter
+              tbody
+                each env in repository.colophon.environments
+                  tr
+                    td.w-1
+                      span.avatar.avatar-sm(class=`avatar-${random()}` style=`background-image: url(//logo.clearbit.com/${domain(env.uri)}`)
+                    td
+                      div= env.title
+                      div.small.text-muted: a(href= env.uri target='_blank')= env.uri
 
     if repository.colophon.references
       div.col-sm-6.col-lg-4
