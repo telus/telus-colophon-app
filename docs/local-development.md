@@ -26,19 +26,23 @@ Note that you will be prompted for a password, take note of it for future steps.
 Then, from the repository root run these comands under your regular user account:
 
 ```
-$ psql -U colophon -h localhost -p 5432 colophon < database/app.sql
-$ psql -U colophon -h localhost -p 5432 colophon < database/sessions.sql
+$ psql -U colophon -h localhost -p 5432 colophon < ./database/app.sql
+$ psql -U colophon -h localhost -p 5432 colophon < ./database/sessions.sql
 ```
 
 You will be prompted to enter the same password you used to create the `colophon` PostgreSQL account.
 
 ### 3. Set up ngrok
 
-[ngrok](https://ngrok.com/) is an application that exposes servers running on your local machine to the public internet over secure tunnels, and is needed so that Github can communicate with your locally-running instance of Colophon.  [Download](https://ngrok.com/download) it, and run it on port `3000`:
+[ngrok](https://ngrok.com/) is an application that exposes servers running on your local machine to the public internet over secure tunnels, and is needed so that Github can communicate with your locally-running instance of Colophon.
+
+[Download](https://ngrok.com/download) it, and run it on port `3000`:
 
 `ngrok http 3000`
 
-You'll get a screen in your terminal displaying ngrok's status
+You'll get a screen in your terminal displaying ngrok's status:
+
+![ngrok status](docs/ngrok.png)
 
 ### 4. Set up Github app
 
