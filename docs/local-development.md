@@ -42,7 +42,7 @@ You will be prompted to enter the same password you used to create the `colophon
 
 You'll get a screen in your terminal displaying ngrok's status:
 
-![ngrok status](docs/ngrok.png)
+![ngrok status](./assets/ngrok.png)
 
 ### 4. Set up Github app
 
