@@ -44,48 +44,85 @@ You'll get a screen in your terminal displaying ngrok's status:
 
 ![ngrok status](./assets/ngrok.png)
 
+Take note of the address being used for `https`, you'll need it for future steps.  Also note that this address will expire after 8 hours.  When you restart ngrok you'll get a new address, and will have to update the associated settings.
+
 ### 4. Set up Github app
+
+Go to the settings page for the organization you set up in step #1.  It will be located here, depending on the name you chose: `https://github.com/organizations/[name-of-test-org]/settings`.
+
+Fill out the following details:
+
+> Github App name
+
+This must be unique across github.
+
+> Homepage URL
+
+Set this to the ngrok `https` address from step 3.
+
+> User authorization callback URL
+
+Set this to `<ngrok_https_address>/auth/callback`
+
+> Webhook URL
+
+Set this to the ngrok `https` address from step 3.
+
+> Webhook secret
+
+Generate a value for this, and take note of it for future steps.
+
+> Permissions
+
+Set the following to `read-only`:
+- repository contents
+- repository metadata
+- organization members
+
+> events
+
+Subscribe to the following events:
+- create
+- delete
+- push
+- repository
+
+Once all of the above has been filled out, click `Create Github App`. Take note of the following values for future steps: `App ID`, `Client ID`, and `Client secret`.
+
+You'll see an alert at the top of the page directing you to generate a private key.  Click the `generate a private key` link, and then the `Generate a private key` button at the bottom of the page.  Save the `pem` file, and take note of the saved location for future steps.
 
 ### 5. Set up environment
 
+Create a file in the repository named `.env`.  Open it and `export` the following environment variables:
+
+Obtained in step 4:
+- `GITHUB_APP_ID`
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+- `GITHUB_APP_LINK`
+- `GITHUB_PRIVATE_KEY_PATH`
+- `GITHUB_WEBHOOK_SECRET`
+
+Obtained in step 2:
+- `POSTGRES_HOST`
+- `POSTGRES_PORT`
+- `POSTGRES_DB`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+
+- `COLOPHON_LINK`  
+Set this to the ngrok `https` url.
+- `COLOPHON_SESSION_SECRET`  
+Generate this.
+
 ### 6. Run app
 
-- set up test github org & repos
-- clone repo
-- set up database
-  - install postgres
-  - as root
-    - `su - postgres`
-    - `createuser -P -h localhost -d -R -e colophon`
-      - enter password
-    - `createdb -O colophon colophon`
-  - as regular user
-    - `psql -U colophon -h localhost -p 5432 colophon < database/app.sql`
-    - `psql -U colophon -h localhost -p 5432 colophon < database/sessions.sql`
-- set up ngrok
-  - https://ngrok.com/
-  - `ngrok http 3000`
-    - take note of https address
-- set up github app
-- set up environment
-  - use .env file to `export` env vars
-    - `GITHUB_APP_ID`
-    - `GITHUB_CLIENT_ID`
-    - `GITHUB_CLIENT_SECRET`
-    - `GITHUB_APP_LINK`
-    - `GITHUB_PRIVATE_KEY_PATH`
-    - `GITHUB_WEBHOOK_SECRET`
-      - generate
-    - `COLOPHON_LINK`
-      - from ngrok
-    - `COLOPHON_SESSION_SECRET`
-      - generate
-    - `POSTGRES_HOST`
-    - `POSTGRES_PORT`
-    - `POSTGRES_DB`
-    - `POSTGRES_USER`
-    - `POSTGRES_PASSWORD`
-- run app
-  - `source .env`
-  - `npm run dev`
-- visit at ngrok https url:3000
+First load the environment variables from the previous step:
+
+`source .env`
+
+Then run the application:
+
+`npm run dev`
+
+The application will be accessible at the ngrok `https` url, on port `3000`.
