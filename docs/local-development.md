@@ -110,10 +110,8 @@ Obtained in step 2:
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
 
-- `COLOPHON_LINK`  
-Set this to the ngrok `https` url.
-- `COLOPHON_SESSION_SECRET`  
-Generate this.
+- `COLOPHON_LINK` - Set this to the ngrok `https` url.
+- `COLOPHON_SESSION_SECRET` - Generate this.
 
 Example:
 
