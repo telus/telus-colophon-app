@@ -87,9 +87,9 @@ Subscribe to the following events:
 - push
 - repository
 
-Once all of the above has been filled out, click `Create Github App`. Take note of the following values for future steps: `App ID`, `Client ID`, and `Client secret`.
+Once all of the above has been filled out, click **Create Github App**. Take note of the following values for future steps: **App ID**, **Client ID**, and **Client secret**.
 
-You'll see an alert at the top of the page directing you to generate a private key.  Click the `generate a private key` link, and then the `Generate a private key` button at the bottom of the page.  Save the `pem` file, and take note of the saved location for future steps.
+You'll see an alert at the top of the page directing you to generate a private key.  Click the **generate a private key** link, and then the **Generate a private key** button at the bottom of the page.  Save the `pem` file, and take note of the saved location for future steps.
 
 ### 5. Set up environment
 
@@ -114,6 +114,24 @@ Obtained in step 2:
 Set this to the ngrok `https` url.
 - `COLOPHON_SESSION_SECRET`  
 Generate this.
+
+Example:
+
+```
+export GITHUB_APP_ID="..."
+export GITHUB_CLIENT_ID="..."
+export GITHUB_CLIENT_SECRET="..."
+export GITHUB_APP_LINK="https://github.com/apps/<app_name>"
+export GITHUB_PRIVATE_KEY_PATH="/path/to/pem/file.pem"
+export GITHUB_WEBHOOK_SECRET="..."
+export POSTGRES_HOST="localhost"
+export POSTGRES_PORT="5432"
+export POSTGRES_DB="colophon"
+export POSTGRES_USER="colophon"
+export POSTGRES_PASSWORD="..."
+export COLOPHON_LINK="<ngrok_https_url>"
+export COLOPHON_SESSION_SECRET="..."
+```
 
 ### 6. Run app
 
