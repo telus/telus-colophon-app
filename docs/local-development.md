@@ -95,10 +95,7 @@ You'll see an alert at the top of the page directing you to generate a private k
 
 Create a file in the repository named `.env`.  Open it and `export` the following environment variables:
 
-- `COLOPHON_LINK` - Set this to the ngrok `https` url.
-- `COLOPHON_SESSION_SECRET` - Generate this.
-
-Obtained in step 4:
+Github values, obtained in step 4:
 - `GITHUB_APP_ID`
 - `GITHUB_CLIENT_ID`
 - `GITHUB_CLIENT_SECRET`
@@ -106,18 +103,20 @@ Obtained in step 4:
 - `GITHUB_PRIVATE_KEY_PATH`
 - `GITHUB_WEBHOOK_SECRET`
 
-Obtained in step 2:
+Posgres values, obtained in step 2:
 - `POSTGRES_HOST`
 - `POSTGRES_PORT`
 - `POSTGRES_DB`
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
 
+Colophon values:
+- `COLOPHON_LINK` - Set this to the ngrok `https` url.
+- `COLOPHON_SESSION_SECRET` - Generate this.
+
 Example:
 
 ```
-export COLOPHON_LINK="<ngrok_https_url>"
-export COLOPHON_SESSION_SECRET="..."
 export GITHUB_APP_ID="..."
 export GITHUB_CLIENT_ID="..."
 export GITHUB_CLIENT_SECRET="..."
@@ -129,6 +128,8 @@ export POSTGRES_PORT="5432"
 export POSTGRES_DB="colophon"
 export POSTGRES_USER="colophon"
 export POSTGRES_PASSWORD="..."
+export COLOPHON_LINK="<ngrok_https_url>"
+export COLOPHON_SESSION_SECRET="..."
 ```
 
 ### 6. Run app
