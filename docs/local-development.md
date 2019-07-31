@@ -79,7 +79,7 @@ Set the following to `read-only`:
 - repository metadata
 - organization members
 
-> events
+> Events
 
 Subscribe to the following events:
 - create
