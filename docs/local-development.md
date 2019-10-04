@@ -16,18 +16,18 @@ Once you have a running instance of PostgreSQL, set it up for Colophon.
 
 First, run these commands as the `postgres` user:
 
-```
-$ createuser -P -h localhost -d -R -e colophon
-$ createdb -O colophon colophon
+```sh
+createuser -P -h localhost -d -R -e colophon
+createdb -O colophon colophon
 ```
 
 Note that you will be prompted for a password, take note of it for future steps.
 
 Then, from the repository root run these comands under your regular user account:
 
-```
-$ psql -U colophon -h localhost -p 5432 colophon < ./database/app.sql
-$ psql -U colophon -h localhost -p 5432 colophon < ./database/sessions.sql
+```sh
+psql -U colophon -h localhost -p 5432 colophon < ./database/app.sql
+psql -U colophon -h localhost -p 5432 colophon < ./database/sessions.sql
 ```
 
 You will be prompted to enter the same password you used to create the `colophon` PostgreSQL account.
@@ -116,7 +116,7 @@ Colophon values:
 
 Example:
 
-```
+```sh
 export GITHUB_APP_ID="..."
 export GITHUB_CLIENT_ID="..."
 export GITHUB_CLIENT_SECRET="..."
