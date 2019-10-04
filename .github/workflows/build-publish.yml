@@ -1,0 +1,46 @@
+name: 'Build, Lint, Test and Deploy if master'
+
+on: push
+
+jobs:
+  Build:
+    name: Build and release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        name: checkout code
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: npm i
+        uses: actions/npm@master
+        with:
+          args: i
+      - name: npm run test
+        uses: actions/npm@master
+        with:
+          node-version: ${{ matrix.node }}
+          args: run test
+      - name: npm run lint
+        uses: actions/npm@master
+        with:
+          args: run lint
+      - uses: actions/npm@master
+        name: release:dryrun
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: run release:dryrun
+      - uses: actions/npm@master
+        if: github.ref	== 'develop'
+        name: release-next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: run release -- --branch next
+      - uses: actions/npm@master
+        if: github.ref	== 'master'
+        name: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: run release

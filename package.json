@@ -35,7 +35,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node index.js",
-    "lint:deps": "npx updated",
+    "lint:audit": "npx audit-ci --config .audit-ci.json",
     "lint:ec": "npx editorconfig-checker -v",
     "lint:js": "eslint .",
     "lint:md": "npx remark-cli --quiet --frail .",
@@ -48,7 +48,7 @@
   "dependencies": {
     "@octokit/app": "^4.1.0",
     "@octokit/graphql": "^4.2.0",
-    "@octokit/rest": "^16.30.1",
+    "@octokit/rest": "^16.30.2",
     "@octokit/webhooks": "^6.3.1",
     "@telus/colophon-schema": "^3.0.1",
     "body-parser": "^1.19.0",
@@ -72,6 +72,7 @@
     "@ahmadnassri/eslint-config": "^1.1.4",
     "@ahmadnassri/remark-config": "^1.0.2",
     "@ahmadnassri/semantic-release-config": "^1.0.8",
+    "audit-ci": "^2.4.0",
     "eslint": "^6.5.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
