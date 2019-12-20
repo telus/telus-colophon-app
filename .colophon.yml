@@ -1,0 +1,31 @@
+version: 2.0
+
+id: telus-colophon-app
+
+about:
+  title: telus-colophon-app
+  description:
+    Standarized project metadata to specify the components, constructs and authorship of software
+
+contacts:
+  - type: Product Owner
+    name: Stephen Marie-Rhodes
+    email: stephen.marie-rhodes@telus.com
+    github: stepmr
+  - type: Developer
+    name: Mauricio Mercado
+    email: mauricio.mercado@telus.com
+    github: maumercado
+  - type: Architect
+    name: Matthew Cantelon
+    email: matthew.cantelon@telus.com
+    github: mattcan
+
+references:
+  - title: Source Code
+    uri: https://github.com/telus/telus-colophon-app
+
+environments:
+  - title: NPM Package
+    uri: https://www.npmjs.com/package/@telus/telus-colophon-app
+    description: Node module
