@@ -25,7 +25,7 @@ references:
   - title: Source Code
     uri: https://github.com/telus/telus-colophon-app
   - title: Homepage
-    uri: https://colophon.id
+    uri: https://colophon.telus.digital
 
 environments:
   - title: NPM Package
