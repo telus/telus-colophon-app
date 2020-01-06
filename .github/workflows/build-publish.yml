@@ -20,33 +20,29 @@ jobs:
         run: npm i
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: npm i
-        uses: actions/npm@master
-        with:
-          args: i
       - name: npm run test
-        uses: actions/npm@master
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
           args: run test
       - name: npm run lint
-        uses: actions/npm@master
+        uses: actions/setup-node@v1
         with:
           args: run lint
-      - uses: actions/npm@master
+      - uses: actions/setup-node@v1
         name: release:dryrun
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: run release:dryrun
-      - uses: actions/npm@master
+      - uses: actions/setup-node@v1
         if: github.ref	== 'develop'
         name: release-next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: run release -- --branch next
-      - uses: actions/npm@master
+      - uses: actions/setup-node@v1
         if: github.ref	== 'master'
         name: release
         env:
