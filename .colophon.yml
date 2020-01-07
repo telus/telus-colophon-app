@@ -29,5 +29,5 @@ references:
 
 environments:
   - title: NPM Package
-    uri: https://www.npmjs.com/package/@telus/telus-colophon-app
+    uri: https://www.npmjs.com/package/@telus/colophon-app
     description: Node module
