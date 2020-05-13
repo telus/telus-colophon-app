@@ -11,7 +11,7 @@ jobs:
         name: checkout code
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm i
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: npm run test
         uses: actions/setup-node@v1
         with:
