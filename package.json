@@ -49,7 +49,7 @@
     "@octokit/app": "^4.1.0",
     "@octokit/graphql": "^4.2.0",
     "@octokit/rest": "^16.30.2",
-    "@octokit/webhooks": "^6.3.1",
+    "@octokit/webhooks": "^7.6.4",
     "@telus/colophon-schema": "^3.0.1",
     "body-parser": "^1.19.0",
     "connect-pg-simple": "^6.0.1",
@@ -61,24 +61,24 @@
     "oh-my-log": "^5.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
-    "pg": "^7.12.1",
-    "pug": "^2.0.4",
+    "pg": "^8.2.1",
+    "pug": "^3.0.0",
     "tabler-ui": "^0.0.34",
     "tap": "^14.6.9",
     "uncaught-extender": "^1.0.1",
-    "yargs": "^14.0.0"
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
     "@ahmadnassri/eslint-config": "^1.1.4",
     "@ahmadnassri/remark-config": "^1.0.2",
     "@ahmadnassri/semantic-release-config": "^1.0.8",
-    "audit-ci": "^2.4.0",
+    "audit-ci": "^3.1.0",
     "eslint": "^6.5.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "nodemon": "^1.19.3"
+    "nodemon": "^2.0.4"
   }
 }
