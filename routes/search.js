@@ -10,7 +10,7 @@ module.exports = async function (req, res) {
   }
 
   // get user installations
-  const installations = req.user.installations.map(installation => installation.id)
+  const installations = req.user.installations.map((installation) => installation.id)
 
   const limit = 10
   const { rows } = await db.repositories(search, installations, limit, page * limit)
@@ -22,5 +22,7 @@ module.exports = async function (req, res) {
   const total = rows[0] ? rows[0].total : 0
   const pages = Math.ceil(total / limit)
 
-  res.render('search/index', { colors, search, repositories: rows, total, pages, page: page + 1 })
+  return res.render('search/index', {
+    colors, search, repositories: rows, total, pages, page: page + 1
+  })
 }

@@ -1,6 +1,11 @@
 {
-  "extends": "@ahmadnassri/eslint-config",
+  "extends": "@telus/eslint-config",
   "rules": {
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+  "no-param-reassign": 0,
+  "radix":0,
+  "no-nested-ternary":0,
+  "no-console":0,
+  "no-restricted-syntax":0,
+  "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   }
 }

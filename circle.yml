@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  base: ahmadnassri/base@1.3.3
-  node: ahmadnassri/node@1.3.3
+  base: telus/base@1.3.3
+  node: telus/node@1.3.3
 
 workflows:
   version: 2
