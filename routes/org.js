@@ -1,12 +1,12 @@
-const db = require('../lib/db')
+const db = require('../lib/db/')
 const scan = require('../lib/scan/org')
 const colors = require('../lib/colors.json')
 
 const sortingMethods = ['asc', 'desc', 'oldest', 'newest']
 
-exports.index = async function (req, res) {
+exports.index = async function getOrganization(req, res) {
   const { org } = req.params
-  const page = parseInt(req.query.page - 1 || 0)
+  const page = parseInt(req.query.page - 1 || 0, 10)
   const sortingMethod = (sortingMethods.includes(req.query.sorting_method))
     ? req.query.sorting_method
     : sortingMethods[0]
@@ -16,7 +16,7 @@ exports.index = async function (req, res) {
     : 'updated'
   const desc = (sortingMethod === 'desc' || sortingMethod === 'newest')
 
-  const installations = req.user.installations.map((installation) => installation.account.login)
+  const installations = req.user.installations.map(installation => installation.account.login)
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
@@ -34,15 +34,14 @@ exports.index = async function (req, res) {
   const total = rows[0] ? rows[0].total : 0
   const pages = Math.ceil(total / limit)
 
-  return res.render('org/index', {
-    colors, org, repositories: rows, total, pages, page: page + 1, sortingMethod
-  })
+  res.render('org/index', { colors, org, repositories: rows, total, pages, page: page + 1, sortingMethod })
+  return true
 }
 
-exports.scan = async function (req, res) {
+exports.scan = async function orgScan(req, res) {
   const { org } = req.params
 
-  const installations = req.user.installations.map((installation) => installation.account.login)
+  const installations = req.user.installations.map(installation => installation.account.login)
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
@@ -57,5 +56,6 @@ exports.scan = async function (req, res) {
 
   // TODO add intermediary page
 
-  return res.redirect(`/${org}`)
+  res.redirect(`/${org}`)
+  return true
 }

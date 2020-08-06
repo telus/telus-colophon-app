@@ -11,24 +11,24 @@ workflows:
       - base/clone
 
       - node/install:
-          requires: [ base/clone ]
+          requires: [base/clone]
 
       - node/lint:
-          requires: [ base/clone ]
+          requires: [base/clone]
 
       - node/test:
           name: test-8
-          requires: [ node/install ]
-          tag: '8'
+          requires: [node/install]
+          tag: "8"
 
       - node/test:
           name: test-10
-          requires: [ node/install ]
-          tag: '10'
+          requires: [node/install]
+          tag: "10"
 
       - node/release:
           context: semantic-release
-          requires: [ test-8, test-10 ]
+          requires: [test-8, test-10]
           filters:
             branches:
               only: master

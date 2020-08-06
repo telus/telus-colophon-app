@@ -1,16 +1,18 @@
 const parser = require('@telus/colophon-schema')
-const db = require('../lib/db')
+const db = require('../lib/db/')
 const scan = require('../lib/scan/repo')
 
 // capture error tree
-const parseErrors = (content) => parser(content).catch((error) => { return (error.name) === 'ColophonError' ? error.errors : error.message })
+const parseErrors = content => parser(content).catch(error => error.name === 'ColophonError' ? error.errors : error.message)
 
-exports.index = async function repository(req, res) {
-  const { org, name } = req.params
+exports.index = async function getRepository(req, res) {
+  const { org } = req.params
+  const { name } = req.params
+
   let guest = true
 
   if (req.user) {
-    const installations = req.user.installations.map((installation) => installation.account.login)
+    const installations = req.user.installations.map(installation => installation.account.login)
 
     // validate this user is a member of this org
     if (installations.includes(org)) {
@@ -18,36 +20,35 @@ exports.index = async function repository(req, res) {
     }
   }
 
-  const { rows: [repo] } = await db.repository.get(org, name)
+  const { rows: [repository] } = await db.repository.get(org, name)
   const { rows: [installation] } = await db.installation.get(org)
 
-  if (!repo) {
+  if (!repository) {
     // guest mode?
     return res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
   }
 
   // guest mode on a private repo?
-  if (guest && repo.private) {
-    return res.render(`repository/public/404`, { org, name })
+  if (guest && repository.private) {
+    return res.render('repository/public/404', { org, name })
   }
 
   // errors placeholder
   let errors
 
   // was this a valid colophon
-  if (repo.content !== null && repository.colophon === null) {
+  if (repository.content !== null && repository.colophon === null) {
     errors = await parseErrors(repository.content)
   }
 
-  return res.render(`repository/${guest ? 'public' : 'private'}/index`, {
-    org, name, repository, errors
-  })
+  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
 }
 
-exports.scan = async function (req, res) {
-  const { org, name } = req.params
+exports.scan = async function dashboard(req, res) {
+  const { org } = req.params
+  const { name } = req.params
 
-  const installations = req.user.installations.map((installation) => installation.account.login)
+  const installations = req.user.installations.map(installation => installation.account.login)
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
@@ -62,5 +63,6 @@ exports.scan = async function (req, res) {
 
   // TODO send to intermediary page
 
-  return res.redirect(`/${org}/${name}`)
+  res.redirect(`/${org}/${name}`)
+  return true
 }

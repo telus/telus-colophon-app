@@ -1,5 +1,5 @@
 const WebhooksApi = require('@octokit/webhooks')
-const db = require('../lib/db')
+const db = require('../lib/db/')
 const log = require('../lib/log')
 const install = require('../lib/install')
 const scan = require('../lib/scan/repo')
@@ -26,8 +26,8 @@ webhooks.on('installation.deleted', ({ payload: { installation } }) => {
 webhooks.on('installation_repositories.added', ({ payload: { installation, repositories_added } }) => { // eslint-disable-line camelcase
   log.info('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
 
-  repositories_added.map((repository) => {
-    return db.repository.add(installation.id, repository)
+  repositories_added.map(repository => {
+   return db.repository.add(installation.id, repository)
   })
 })
 
@@ -35,8 +35,8 @@ webhooks.on('installation_repositories.added', ({ payload: { installation, repos
 webhooks.on('installation_repositories.removed', ({ payload: { installation, repositories_removed } }) => { // eslint-disable-line camelcase
   log.info('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
 
-  repositories_removed.map((repo) => {
-    return db.repository.remove(installation.id, repo.id)
+  repositories_removed.map(repo => {
+   return db.repository.remove(installation.id, repo.id)
   })
 })
 
@@ -53,9 +53,7 @@ webhooks.on('repository.deleted', ({ payload: { installation, repository } }) =>
 })
 
 webhooks.on('push', ({ payload }) => {
-  const {
-    installation, repository, ref, commits
-  } = payload
+  const { installation, repository, ref, commits } = payload
 
   // is this the default branch?
   const defaultBranch = ref === `refs/heads/${repository.default_branch}`

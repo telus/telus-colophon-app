@@ -14,21 +14,20 @@ auth.get('/out', (req, res) => {
 })
 
 // refresh the user session
-auth.get('/refresh', async (req, res) => {
+auth.get('/refresh', async function dashboard (req, res) {
   // exit early
   if (!req.user) return res.redirect('/home')
 
   const octokit = await api.user(req.user.accessToken)
 
   // fetch installations for this user
-  const {
-    data: { installations }
-  } = await octokit.apps.listInstallationsForAuthenticatedUser() // TODO paginate
+  const { data: { installations } } = await octokit.apps.listInstallationsForAuthenticatedUser() // TODO paginate
 
   // update user session
   req.session.passport.user.installations = installations
 
-  return res.redirect('/dashboard')
+  res.redirect('/dashboard')
+  return true
 })
 
 module.exports = auth
