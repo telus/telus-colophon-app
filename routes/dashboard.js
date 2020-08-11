@@ -42,7 +42,7 @@ dashboard.get('/', async function showDashboard(req, res) {
 
   const installations = rows.map(row => {
     const { available = 0, total = 0, progress = percentage(available, total) } = row
-    const updatedRow = row
+    const updatedRow = {...row}
     updatedRow.progress = progress
 
     updatedRow.status = getProgress(progress)

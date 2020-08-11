@@ -20,7 +20,8 @@ exports.index = async function getOrganization(req, res) {
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
-    return res.render('org/404', { org })
+   res.render('org/404', { org })
+   return
   }
 
   const limit = 10
@@ -28,14 +29,14 @@ exports.index = async function getOrganization(req, res) {
   const { rows } = await db.repository.list(org, orderBy, desc, limit, page * limit)
 
   if (rows.length === 0) {
-    return res.render('org/404', { org })
+   res.render('org/404', { org })
+   return
   }
 
   const total = rows[0] ? rows[0].total : 0
   const pages = Math.ceil(total / limit)
 
   res.render('org/index', { colors, org, repositories: rows, total, pages, page: page + 1, sortingMethod })
-  return true
 }
 
 exports.scan = async function orgScan(req, res) {
@@ -45,7 +46,8 @@ exports.scan = async function orgScan(req, res) {
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
-    return res.redirect('/dashboard')
+   res.redirect('/dashboard')
+   return
   }
 
   const { rows: [installation] } = await db.installation.get(org)
@@ -57,5 +59,4 @@ exports.scan = async function orgScan(req, res) {
   // TODO add intermediary page
 
   res.redirect(`/${org}`)
-  return true
 }

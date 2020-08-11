@@ -14,9 +14,12 @@ auth.get('/out', (req, res) => {
 })
 
 // refresh the user session
-auth.get('/refresh', async function dashboard (req, res) {
+auth.get('/refresh', async function dashboard(req, res) {
   // exit early
-  if (!req.user) return res.redirect('/home')
+  if (!req.user) {
+    res.redirect('/home')
+    return
+  }
 
   const octokit = await api.user(req.user.accessToken)
 
@@ -27,7 +30,6 @@ auth.get('/refresh', async function dashboard (req, res) {
   req.session.passport.user.installations = installations
 
   res.redirect('/dashboard')
-  return true
 })
 
 module.exports = auth
