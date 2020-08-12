@@ -6,7 +6,8 @@ module.exports = async function searchRepositories(req, res) {
   const search = req.query.q
 
   if (!search || search.length < 3) {
-    return res.render('search/empty', { search })
+   res.render('search/empty', { search })
+   return
   }
 
   // get user installations
@@ -16,12 +17,12 @@ module.exports = async function searchRepositories(req, res) {
   const { rows } = await db.repositories(search, installations, limit, page * limit)
 
   if (rows.length === 0) {
-    return res.render('search/404', { search })
+   res.render('search/404', { search })
+   return
   }
 
   const total = rows[0] ? rows[0].total : 0
   const pages = Math.ceil(total / limit)
 
   res.render('search/index', { colors, search, repositories: rows, total, pages, page: page + 1 })
-  return true
 }

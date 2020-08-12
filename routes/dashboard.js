@@ -17,27 +17,27 @@ const getProgress = (progress) => {
 }
 const dashboard = express.Router()
 
-
-
-
 // dashboard overview
 dashboard.get('/', async function showDashboard(req, res) {
   // refresh session when user is redirected back from github
   if (req.query.installation_id && req.query.setup_action) {
-    return res.redirect('/auth/refresh')
+    res.redirect('/auth/refresh')
+    return
   }
 
   // only show installations belonging to the user
   const userInstallations = req.user.installations.map(installation => installation.id)
 
   if (userInstallations.length === 0) {
-    return res.render('dashboard/404')
+   res.render('dashboard/404')
+   return
   }
 
   const { rows } = await db.list(userInstallations)
 
   if (rows.length === 0) {
-    return res.render('dashboard/404')
+   res.render('dashboard/404')
+   return
   }
 
   const installations = rows.map(row => {
@@ -51,7 +51,6 @@ dashboard.get('/', async function showDashboard(req, res) {
   })
 
   res.render('dashboard/index', { installations })
-  return true
 })
 
 dashboard.get('/scan', async function scan(req, res) {

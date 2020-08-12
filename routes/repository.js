@@ -25,12 +25,14 @@ exports.index = async function getRepository(req, res) {
 
   if (!repository) {
     // guest mode?
-    return res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
+    res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
+    return
   }
 
   // guest mode on a private repo?
   if (guest && repository.private) {
-    return res.render('repository/public/404', { org, name })
+   res.render('repository/public/404', { org, name })
+   return
   }
 
   // errors placeholder
@@ -41,7 +43,7 @@ exports.index = async function getRepository(req, res) {
     errors = await parseErrors(repository.content)
   }
 
-  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
+   res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
 }
 
 exports.scan = async function dashboard(req, res) {
@@ -52,7 +54,8 @@ exports.scan = async function dashboard(req, res) {
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
-    return res.redirect('/dashboard')
+   res.redirect('/dashboard')
+   return
   }
 
   const { rows: [repository] } = await db.repository.get(org, name)
@@ -64,5 +67,4 @@ exports.scan = async function dashboard(req, res) {
   // TODO send to intermediary page
 
   res.redirect(`/${org}/${name}`)
-  return true
 }
