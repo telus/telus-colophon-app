@@ -27,7 +27,7 @@ webhooks.on('installation_repositories.added', ({ payload: { installation, repos
   log.info('%s:blue adding %d:cyan repositories', installation.id, repositories_added.length)
 
   repositories_added.map(repository => {
-    db.repository.add(installation.id, repository)
+   return db.repository.add(installation.id, repository)
   })
 })
 
@@ -36,7 +36,7 @@ webhooks.on('installation_repositories.removed', ({ payload: { installation, rep
   log.info('%s:blue removing %d:cyan repositories', installation.id, repositories_removed.length)
 
   repositories_removed.map(repo => {
-    db.repository.remove(installation.id, repo.id)
+   return db.repository.remove(installation.id, repo.id)
   })
 })
 

@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  base: ahmadnassri/base@1.3.3
-  node: ahmadnassri/node@1.3.3
+  base: telus/base@1.3.3
+  node: telus/node@1.3.3
 
 workflows:
   version: 2
@@ -11,24 +11,24 @@ workflows:
       - base/clone
 
       - node/install:
-          requires: [ base/clone ]
+          requires: [base/clone]
 
       - node/lint:
-          requires: [ base/clone ]
+          requires: [base/clone]
 
       - node/test:
-          name: test-8
-          requires: [ node/install ]
-          tag: '8'
+          name: test-12
+          requires: [node/install]
+          tag: "12"
 
       - node/test:
           name: test-10
-          requires: [ node/install ]
-          tag: '10'
+          requires: [node/install]
+          tag: "10"
 
       - node/release:
           context: semantic-release
-          requires: [ test-8, test-10 ]
+          requires: [test-12, test-10]
           filters:
             branches:
               only: master

@@ -1,12 +1,13 @@
 const db = require('../lib/db/search')
 const colors = require('../lib/colors.json')
 
-module.exports = async function (req, res) {
-  const page = parseInt(req.query.page - 1 || 0)
+module.exports = async function searchRepositories(req, res) {
+  const page = parseInt(req.query.page - 1 || 0, 10)
   const search = req.query.q
 
   if (!search || search.length < 3) {
-    return res.render('search/empty', { search })
+   res.render('search/empty', { search })
+   return
   }
 
   // get user installations
@@ -16,7 +17,8 @@ module.exports = async function (req, res) {
   const { rows } = await db.repositories(search, installations, limit, page * limit)
 
   if (rows.length === 0) {
-    return res.render('search/404', { search })
+   res.render('search/404', { search })
+   return
   }
 
   const total = rows[0] ? rows[0].total : 0

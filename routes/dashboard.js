@@ -1,5 +1,4 @@
 const express = require('express')
-
 const db = require('../lib/db/installation')
 const log = require('../lib/log')
 const api = require('../lib/github/api')
@@ -7,43 +6,54 @@ const install = require('../lib/install')
 
 const percentage = (x, y) => Math.floor((x / y) * 100)
 
+const getProgress = (progress) => {
+  if (progress > 50) {
+    return 'green'
+  }
+  if (progress > 0) {
+    return 'yellow'
+  }
+  return 'red'
+}
 const dashboard = express.Router()
 
 // dashboard overview
-dashboard.get('/', async function (req, res) {
+dashboard.get('/', async function showDashboard(req, res) {
   // refresh session when user is redirected back from github
   if (req.query.installation_id && req.query.setup_action) {
-    return res.redirect('/auth/refresh')
+    res.redirect('/auth/refresh')
+    return
   }
 
   // only show installations belonging to the user
   const userInstallations = req.user.installations.map(installation => installation.id)
 
   if (userInstallations.length === 0) {
-    return res.render('dashboard/404')
+   res.render('dashboard/404')
+   return
   }
 
   const { rows } = await db.list(userInstallations)
 
   if (rows.length === 0) {
-    return res.render('dashboard/404')
+   res.render('dashboard/404')
+   return
   }
 
   const installations = rows.map(row => {
-    row.available = row.available || 0
-    row.total = row.total || 0
+    const { available = 0, total = 0, progress = percentage(available, total) } = row
+    const updatedRow = {...row}
+    updatedRow.progress = progress
 
-    row.progress = percentage(row.available, row.total)
+    updatedRow.status = getProgress(progress)
 
-    row.status = row.progress > 0 ? row.progress > 50 ? 'green' : 'yellow' : 'red'
-
-    return row
+    return updatedRow
   })
 
   res.render('dashboard/index', { installations })
 })
 
-dashboard.get('/scan', async function (req, res) {
+dashboard.get('/scan', async function scan(req, res) {
   const octokit = await api.user(req.user.accessToken)
 
   // fetch installations for this user

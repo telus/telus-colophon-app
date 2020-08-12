@@ -1,6 +1,0 @@
-{
-  "extends": "@ahmadnassri/eslint-config",
-  "rules": {
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
-  }
-}

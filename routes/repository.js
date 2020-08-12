@@ -1,13 +1,13 @@
+const parser = require('@telus/colophon-schema')
 const db = require('../lib/db/')
 const scan = require('../lib/scan/repo')
-const parser = require('@telus/colophon-schema')
 
 // capture error tree
 const parseErrors = content => parser(content).catch(error => error.name === 'ColophonError' ? error.errors : error.message)
 
-exports.index = async function repository (req, res) {
-  const org = req.params.org
-  const name = req.params.name
+exports.index = async function getRepository(req, res) {
+  const { org } = req.params
+  const { name } = req.params
 
   let guest = true
 
@@ -25,12 +25,14 @@ exports.index = async function repository (req, res) {
 
   if (!repository) {
     // guest mode?
-    return res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
+    res.render(`repository/${guest ? 'public' : 'private'}/404`, { org, name, installation })
+    return
   }
 
   // guest mode on a private repo?
   if (guest && repository.private) {
-    return res.render(`repository/public/404`, { org, name })
+   res.render('repository/public/404', { org, name })
+   return
   }
 
   // errors placeholder
@@ -41,18 +43,19 @@ exports.index = async function repository (req, res) {
     errors = await parseErrors(repository.content)
   }
 
-  return res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
+   res.render(`repository/${guest ? 'public' : 'private'}/index`, { org, name, repository, errors })
 }
 
-exports.scan = async function (req, res) {
-  const org = req.params.org
-  const name = req.params.name
+exports.scan = async function dashboard(req, res) {
+  const { org } = req.params
+  const { name } = req.params
 
   const installations = req.user.installations.map(installation => installation.account.login)
 
   // validate this user is a member of this org
   if (!installations.includes(org)) {
-    return res.redirect('/dashboard')
+   res.redirect('/dashboard')
+   return
   }
 
   const { rows: [repository] } = await db.repository.get(org, name)

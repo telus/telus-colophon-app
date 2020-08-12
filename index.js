@@ -16,7 +16,7 @@ process.on('unhandledRejection:*', log.exit)
 const app = require('./app')
 const { connect } = require('./lib/db/connection')
 
-async function main (argv) {
+async function main () {
   // attempt database connection first
   try {
     await connect()
