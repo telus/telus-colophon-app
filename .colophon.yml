@@ -7,7 +7,7 @@ about:
   description: Standarized project metadata to specify the components, constructs and authorship of software
 
 contacts:
-  - type: Developer Architect
+  - type: Architect
     name: Mauricio Mercado
     email: mauricio.mercado@telus.com
     github: maumercado
