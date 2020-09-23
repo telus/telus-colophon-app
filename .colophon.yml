@@ -7,22 +7,11 @@ about:
   description: Standarized project metadata to specify the components, constructs and authorship of software
 
 contacts:
-  - type: Architect
-    name: Mauricio Mercado
-    email: mauricio.mercado@telus.com
-    github: maumercado
-  - type: Developer
-    name: Sayde Deng
-    email: sayde.deng@telus.com
-    github: saydex
-  - type: Developer
-    name: Pramod Mendonca
-    email: pramod.mendonca@telus.com
-    github: mendoncp
-  - type: Architect
-    name: Matthew Cantelon
-    email: matthew.cantelon@telus.com
-    github: mattcan
+  - type: team
+    name: Platform Technology & Tools TEAM
+    members_uri: 'https://github.com/orgs/telus/teams/platform-technology-tools-team/members'
+    repositories_uri: >-
+      https://github.com/orgs/telus/teams/platform-technology-tools-team/repositories
 
 references:
   - title: Source Code
