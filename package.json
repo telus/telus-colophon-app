@@ -46,15 +46,15 @@
     "test": "tap test --100 --coverage-report=lcov --no-browser"
   },
   "dependencies": {
-    "@octokit/app": "^4.1.0",
-    "@octokit/graphql": "^4.5.6",
-    "@octokit/rest": "^18.0.6",
+    "@octokit/app": "^4.3.0",
+    "@octokit/graphql": "^4.5.7",
+    "@octokit/rest": "^18.0.8",
     "@octokit/webhooks": "^6.3.2",
     "@telus/colophon-schema": "^3.0.1",
     "body-parser": "^1.19.0",
     "connect-pg-simple": "^6.2.1",
     "cookie-parser": "^1.4.4",
-    "dayjs": "^1.8.36",
+    "dayjs": "^1.9.4",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
@@ -73,7 +73,7 @@
     "@telus/semantic-release-config": "^1.0.8",
     "@telus/telus-standard": "^2.0.3",
     "audit-ci": "^3.1.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.6"
   },
   "telus-standard": {
     "ignore": [
