@@ -1,0 +1,8 @@
+site_name: telus-colophon-app
+site_description: Documentation for telus-colophon-app
+plugins:
+  - techdocs-core
+nav:
+  - App: app.md
+  - Environment: environment.md
+  - Local Development: local-development.md
